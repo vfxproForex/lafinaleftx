@@ -10,11 +10,13 @@ export default function BitcoinModal() {
         <p className="font-medium mb-5">
           How to fund your account with Bitcoin
         </p>
-        <p className="pl-8 mb-3">1. Click on "Copy Deposit Address"</p>
+        <p className="pl-8 mb-3">
+          1. Click on &quot;Copy Deposit Address&quot;
+        </p>
         <p className="pl-8 mb-3">
           2. Navigate to Bitcoin and enter deposit amount desired.
         </p>
-        <p className="pl-8 mb-3">3. Click on "Copy Reference"</p>
+        <p className="pl-8 mb-3">3. Click on &quot;Copy Reference&quot;</p>
         <p className="pl-8 mb-3">4. Paste Reference on Bitcon Reference</p>
         <p className="pl-8 mb-3">
           5. Confirm transfer and send proof of payment at:

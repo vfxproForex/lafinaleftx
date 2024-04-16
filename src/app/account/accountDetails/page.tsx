@@ -3,7 +3,7 @@ import { useAppSelector } from "@/utlis/store";
 import Link from "next/link";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { createAccountDetailsAction } from "@/utlis/accountDetails";
 
 export default function AccountDetailsPage() {
@@ -48,7 +48,6 @@ export default function AccountDetailsPage() {
     const data = await response.json();
     await dispatch(createAccountDetailsAction(data.data.userDetails));
   };
-  const cookie = Cookies.get("qid");
 
   useEffect(() => {
     //if (cookie) {

@@ -15,7 +15,10 @@ interface IProps {
 const DepositList: FC<IProps> = (props) => {
   return props.data.map((deposit) => {
     return (
-      <div className="flex flex-col shadow-lg p-4 border-2 rounded-md bg-gray-200">
+      <div
+        className="flex flex-col shadow-lg p-4 border-2 rounded-md bg-gray-200"
+        key={deposit.refernce.toString()}
+      >
         <div className="mt-5 mb-5">
           <h1>Deposit date:</h1>
           <h1>{deposit.depositDate}</h1>
