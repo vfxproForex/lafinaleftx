@@ -11,9 +11,7 @@ import { useAppSelector } from "@/utlis/store";
 const syne = Syne({ subsets: ["latin"] });
 
 export default function AccountNav() {
-  const userBalance = useAppSelector(
-    (state) => state.accountDetails.currentBalance
-  );
+  const userBalance = useAppSelector((state) => state.userState.balance);
   const [toggleMenu, setToggleMenu] = useState<boolean>(false);
   function toggleHandler() {
     if (toggleMenu) {

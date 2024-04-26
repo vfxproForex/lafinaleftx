@@ -2,8 +2,10 @@
 import { Syne } from "next/font/google";
 import Link from "next/link";
 import toast, { Toaster } from "react-hot-toast";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import signApi from "../actions/signIn";
+import Cookies from "js-cookie";
+import { redirect } from "next/navigation";
 
 const syne = Syne({ subsets: ["latin"] });
 
@@ -26,6 +28,14 @@ export default function SignInPage() {
       toast.error(err.message);
     }
   };
+
+  useEffect(() => {
+    const checkCookie = Cookies.get("qid");
+
+    if (checkCookie?.length !== undefined) {
+      return redirect("/account");
+    }
+  }, []);
   return (
     <form
       onSubmit={onSubmit}

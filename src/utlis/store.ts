@@ -9,10 +9,12 @@ import accountDetailsSlice from "./accountDetails";
 import withdrawSlice from "./withdraws";
 import depositSlice from "./deposits";
 import tokenSlice from "./token";
+import userSlice from "./user";
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
+      userState: userSlice.reducer,
       accountDetails: accountDetailsSlice.reducer,
       withdraws: withdrawSlice.reducer,
       deposits: depositSlice.reducer,
@@ -28,6 +30,7 @@ export type RootState = ReturnType<AppStore["getState"]>;
 export type AppDispathc = AppStore["dispatch"];
 
 const reducer = combineReducers({
+  userState: userSlice.reducer,
   token: tokenSlice.reducer,
   accountDetails: accountDetailsSlice.reducer,
   withdrawal: withdrawSlice.reducer,

@@ -29,7 +29,7 @@ export default function DepositPage() {
         Select Deposit Method.
       </h1>
 
-      <div className="p-2 w-[30vh] bg-gray-300 flex justify-center shadow-md">
+      <div className="p-2 w-[30vh] bg-gray-300 cursor-pointer flex justify-center shadow-md">
         <FaBitcoin
           style={{ color: "black", fontSize: "128px" }}
           onClick={toggleModalHandler}

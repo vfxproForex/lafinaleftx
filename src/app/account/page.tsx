@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/utlis/store";
 import { createAccountDetailsAction } from "@/utlis/accountDetails";
 import Link from "next/link";
+import { getUserBalanceAction } from "@/utlis/user";
 
 export default async function AccountPage() {
   const deposits = useAppSelector((state) => state.deposits);
@@ -18,6 +19,33 @@ export default async function AccountPage() {
     }
   };
 
+  const getAccountBalance = async () => {
+    const requestBody = {
+      query: `
+         query {
+            getBalance(userId: "${cookie}")
+            }
+        `,
+    };
+
+    try {
+      const response = await fetch("http://localhost:3000/graphql", {
+        method: "POST",
+        body: JSON.stringify(requestBody),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+
+      console.log("user balance...");
+      const amount = data.data.getBalance;
+
+      dispatch(getUserBalanceAction({ balance: amount }));
+    } catch (err) {
+      throw err;
+    }
+  };
   const getAccountDetails = async () => {
     const requestBody = {
       query: `
@@ -52,9 +80,6 @@ export default async function AccountPage() {
 
     const data = await response.json();
 
-    console.log("running...");
-    console.log(data);
-
     dispatch(createAccountDetailsAction(data.data.userDetails));
   };
   const getDeposit = async () => {};
@@ -66,6 +91,7 @@ export default async function AccountPage() {
     getAccountDetails();
     getDeposit();
     getWithdrawal();
+    getAccountBalance();
   }, []);
   return (
     <div className="h-screen w-screen flex flex-col gap-y-5 justify-center items-center">

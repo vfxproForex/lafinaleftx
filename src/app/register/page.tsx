@@ -23,7 +23,7 @@ export default function RegisterPage() {
       success: "Got the data",
       error: "Error when fetching",
     });
-    redirect("/checkemail");
+    redirect("/checkEmail");
   };
 
   return (
