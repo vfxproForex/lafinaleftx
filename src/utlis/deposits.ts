@@ -5,6 +5,7 @@ export interface IDeposit {
   depositDate: string;
   refernce: string;
   depositAmount: string;
+  status: boolean;
 }
 
 const initialState: IDeposit[] = [];
@@ -15,6 +16,7 @@ const depositSlice = createSlice({
   reducers: {
     create: {
       reducer: (state, { payload }: PayloadAction<IDeposit>) => {
+        console.log(payload);
         state.push(payload);
       },
       prepare: (item) => ({
@@ -24,6 +26,6 @@ const depositSlice = createSlice({
   },
 });
 
-export const { create: createDepositsliceAction } = depositSlice.actions;
+export const { create: createDepositAction } = depositSlice.actions;
 
 export default depositSlice;

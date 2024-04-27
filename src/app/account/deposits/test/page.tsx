@@ -17,9 +17,9 @@ const VisaDepositPage = () => {
   const [formData, setFormData] = useState<Record<string, string>>({
     merchant_id: "10000100",
     merchant_key: "46f0cd694581a",
-    return_url: "http://localhost:3000/account/deposits/successful/",
-    cancel_url: "http://localhost:3000/account/deposits/",
-    notify_url: "http://localhost:3000/account/",
+    return_url: "http://localhost:3001/account/deposits/successful/",
+    cancel_url: "http://localhost:3001/account/deposits/",
+    notify_url: "http://localhost:3001/account/",
     name_first: "",
     name_last: "",
     email_address: "",
@@ -65,11 +65,12 @@ mutation {
         },
         body: JSON.stringify(requestBody),
       });
+
+      Cookies.set("amount", formData.amount);
       return response.json();
     } catch (err) {
       throw err;
     }
-    await console.log("Form submitted:", formData);
   };
 
   return (

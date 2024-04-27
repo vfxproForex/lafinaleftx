@@ -14,9 +14,7 @@ export default function AccountLayout({
   return (
     <Provider store={storeRef.current}>
       <AccountNav />
-      <div className="h-screen w-screen bg-white overflow-y-auto">
-        {children}
-      </div>
+      <div className="h-screen w-screen bg-white">{children}</div>
     </Provider>
   );
 }
