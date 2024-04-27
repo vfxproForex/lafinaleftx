@@ -19,7 +19,8 @@ const DepositList: FC<IProps> = (props) => {
       {props.data.map((deposit) => {
         return (
           <div className="p-2 bg-gray-200 rounded-lg m-3 shadow-md">
-            <h1 className={"text-gray-400 mb-5"}>{deposit.refernce}</h1>
+            <p className={"text-gray-500 "}>Deposit Reference:</p>
+            <h1 className={"text-gray-400 mb-4 text-sm"}>{deposit.refernce}</h1>
             <h1 className={""}>
               {new Intl.DateTimeFormat("en-ZA").format(
                 new Date(deposit.depositDate)
@@ -37,7 +38,6 @@ const DepositList: FC<IProps> = (props) => {
               {new Intl.NumberFormat("en-ZA", {
                 style: "currency",
                 currency: "ZAR",
-                maximumSignificantDigits: 3,
               }).format(deposit.depositAmount)}
             </h1>
           </div>

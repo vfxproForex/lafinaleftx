@@ -11,7 +11,13 @@ import { useAppSelector } from "@/utlis/store";
 const syne = Syne({ subsets: ["latin"] });
 
 export default function AccountNav() {
-  const userBalance = useAppSelector((state) => state.userState.balance);
+  const userBalance = useAppSelector((state) => {
+    const currentBalance = new Intl.NumberFormat("en-ZA", {
+      style: "currency",
+      currency: "ZAR",
+    }).format(state.userState.balance);
+    return currentBalance;
+  });
   const [toggleMenu, setToggleMenu] = useState<boolean>(false);
   function toggleHandler() {
     if (toggleMenu) {
