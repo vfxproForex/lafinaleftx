@@ -10,14 +10,17 @@ import Cookies from "js-cookie";
 import { useRef } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { createWithDrawAction } from "@/utlis/withdraws";
-import { createAccountDetailsAction } from "@/utlis/accountDetails";
 
 export default function WithdrawPage() {
   const amountRef = useRef<HTMLInputElement>(null);
 
-  const currentBalance = useAppSelector(
-    (state) => state.accountDetails.currentBalance
-  );
+  const currentBalance = useAppSelector((state) => {
+    const currentBalance = new Intl.NumberFormat("en-ZA", {
+      style: "currency",
+      currency: "ZAR",
+    }).format(state.userState.balance);
+    return currentBalance;
+  });
   const dispatch = useAppDispatch();
 
   const createWithDrawal = async () => {
@@ -26,8 +29,8 @@ export default function WithdrawPage() {
 
     const requestBody = {
       query: `
-            mutation{
-              createWithdraw(amount: "${amount}", userId: "${cookie}"){
+            mutation {
+              createWithdraw(amount: ${amount}, userId: "${cookie}"){
                 userId
                 withdrawDate
                 reference
@@ -37,31 +40,18 @@ export default function WithdrawPage() {
 `,
     };
 
-    const response = await toast.promise(
-      fetch("http://localhost:3000/graphql", {
-        method: "POST",
+    try {
+      const response = await fetch("http://localhost:3000/graphql", {
+        method: "post",
         headers: {
-          "Context-Type": "application/json",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(requestBody),
-      }),
-      {
-        loading: "Submit Request",
-        success: "Request Submitted",
-        error: "Unable to submit request.",
-      }
-    );
+      });
 
-    try {
       const data = await response.json();
-      if (response.ok) {
-        dispatch(
-          createWithDrawAction(data.data.createWithdraw.withdrawalAmount)
-        );
-        dispatch(
-          createAccountDetailsAction(data.data.createWithdraw.withdrawalAmount)
-        );
-      }
+      console.log(data);
+      dispatch(createWithDrawAction(data.data.createWithdraw.withdrawalAmount));
     } catch (err) {
       console.log(`Error creating deposit: ${err}`);
     }
@@ -84,7 +74,10 @@ export default function WithdrawPage() {
           type="number"
           placeholder="Withdrawal Amount"
         />
-        <button className="p-2 min-w-[20vh] max-w-[25vh] font-semibold bg-gray-500 rounded-md">
+        <button
+          onClick={createWithDrawal}
+          className="p-2 min-w-[20vh] max-w-[25vh] font-semibold bg-gray-500 rounded-md"
+        >
           Request
         </button>
       </div>

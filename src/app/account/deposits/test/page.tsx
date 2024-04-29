@@ -15,8 +15,8 @@ const VisaDepositPage = () => {
   const [paymentId, setPaymentId] = useState("");
 
   const [formData, setFormData] = useState<Record<string, string>>({
-    merchant_id: "10000100",
-    merchant_key: "46f0cd694581a",
+    merchant_id: "10000100", //23103831
+    merchant_key: "46f0cd694581a", //z6cubevrh5ojc
     return_url: "http://localhost:3001/account/deposits/successful/",
     cancel_url: "http://localhost:3001/account/deposits/",
     notify_url: "http://localhost:3001/account/",
@@ -34,7 +34,7 @@ const VisaDepositPage = () => {
   }, []);
 
   useEffect(() => {
-    formData.signature = generateSignature(formData, "jt7NOE43FZPn");
+    formData.signature = generateSignature(formData, "jt7NOE43FZPn"); //a1Sdiwnzziworsdfwefadfbeargar
   }, [formData]);
 
   const handleInputChange = (
