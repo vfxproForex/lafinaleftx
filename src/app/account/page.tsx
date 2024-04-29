@@ -155,7 +155,7 @@ export default function AccountPage() {
         </>
       ) : (
         <>
-          <DepositList data={deposits} />
+          <DepositList />
         </>
       )}
     </div>

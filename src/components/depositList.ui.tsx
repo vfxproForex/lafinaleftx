@@ -1,24 +1,17 @@
 "use client";
+import { useAppSelector } from "@/utlis/store";
 import { FC } from "react";
 
-interface IProps {
-  data: [
-    {
-      userId: string;
-      depositDate: string;
-      refernce: string;
-      depositAmount: number;
-      status: boolean;
-    }
-  ];
-}
-
-const DepositList: FC<IProps> = (props) => {
+const DepositList: FC = () => {
+  const deposits = useAppSelector((state) => state.deposits);
   return (
     <div className="h-[100%] w-screen p-3 overflow-y-scroll">
-      {props.data.map((deposit) => {
+      {deposits.map((deposit) => {
         return (
-          <div className="p-2 bg-gray-200 rounded-lg m-3 shadow-md">
+          <div
+            className="p-2 bg-gray-200 rounded-lg m-3 shadow-md"
+            key={deposit.refernce}
+          >
             <p className={"text-gray-500 "}>Deposit Reference:</p>
             <h1 className={"text-gray-400 mb-4 text-sm"}>{deposit.refernce}</h1>
             <h1 className={""}>
@@ -38,7 +31,7 @@ const DepositList: FC<IProps> = (props) => {
               {new Intl.NumberFormat("en-ZA", {
                 style: "currency",
                 currency: "ZAR",
-              }).format(deposit.depositAmount)}
+              }).format(parseInt(deposit.depositAmount))}
             </h1>
           </div>
         );

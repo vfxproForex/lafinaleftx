@@ -1,7 +1,7 @@
 "use client";
 import { useAppSelector } from "@/utlis/store";
 import Link from "next/link";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
 import { createAccountDetailsAction } from "@/utlis/accountDetails";
@@ -46,7 +46,7 @@ export default function AccountDetailsPage() {
     });
 
     const data = await response.json();
-    await dispatch(createAccountDetailsAction(data.data.userDetails));
+    dispatch(createAccountDetailsAction(data.data.userDetails));
   };
 
   useEffect(() => {
