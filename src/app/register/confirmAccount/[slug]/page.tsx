@@ -40,7 +40,7 @@ export default function ConfirmAccountPage({
     <div className="h-screen w-screen flex flex-col gap-y-5 justify-center items-center align-middle">
       <h1 className="text-3xl font-semibold">Pinnacle FTX</h1>
       <h1 className="text-xl font-semibold">Welcome fellow investor.</h1>
-      <p className="text-sm">Confirm E-Mail.</p>
+      <p className="text-sm">Please Confirm E-Mail.</p>
 
       <button
         className="bg-gray-500 w-[20vh] p-3 rounded-md font-bold text-bold"
