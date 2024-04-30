@@ -10,15 +10,17 @@ export default function ConfirmAccountPage({
 }) {
   const route = useRouter();
   const confirmEmailHandler = async () => {
-    try {
-      const requestBody = {
-        query: `
+    const redisId = await params.slug.toString();
+
+    const requestBody = {
+      query: `
         mutation {
-            confirmEmail( id: "${params.slug}")
+            confirmEmail(id: "${redisId}")
         }
 `,
-      };
+    };
 
+    try {
       const response = await fetch(
         `${
           process.env.NODE_ENV === "production"
