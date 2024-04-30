@@ -17,8 +17,17 @@ const VisaDepositPage = () => {
   const [formData, setFormData] = useState<Record<string, string>>({
     merchant_id: "10000100", //23103831
     merchant_key: "46f0cd694581a", //z6cubevrh5ojc
-    return_url: "http://localhost:3001/account/deposits/successful/",
-    cancel_url: "http://localhost:3001/account/deposits/",
+    return_url: `${
+      process.env.node_env === "production"
+        ? "https://pinnacleftx.com/account/deposits/successful"
+        : "http://localhost:3001/account/deposits/successful"
+    }`,
+    cancel_url: `${
+      process.env.node_env === "production"
+        ? "https://pinnacleftx.com/account/deposits"
+        : "http://localhost:3001/account/deposits"
+    }`,
+    //cancel_url: "http://localhost:3001/account/deposits/",
     notify_url: "http://localhost:3001/account/",
     name_first: "",
     name_last: "",
