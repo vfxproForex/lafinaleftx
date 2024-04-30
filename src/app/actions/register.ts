@@ -17,13 +17,21 @@ mutation {
   }
 }
 `;
-  await fetch("http://localhost:3000/graphql", {
-    method: "POST",
-    body: JSON.stringify({ query: query }),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
+
+  await fetch(
+    `${
+      process.env.NODE_ENV === "production"
+        ? process.env.backend_server
+        : process.env.dev_server
+    }`,
+    {
+      method: "POST",
+      body: JSON.stringify({ query: query }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  )
     .then((res) => {
       if (res.status !== 200 && res.status !== 201) {
         console.log(res.json());

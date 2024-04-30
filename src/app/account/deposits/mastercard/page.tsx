@@ -13,8 +13,8 @@ export default function MasterCardPage() {
     merchant_id: "10000100",
     merchant_key: "46f0cd694581a",
     return_url: "http://localhost:3001/account/deposits/successful/",
-    cancel_url: "http://localhost:3000/account/deposits",
-    notify_url: "http://localhost:3000/account/",
+    cancel_url: "http://localhost:3000/account/deposits", //create the page
+    notify_url: "http://localhost:3000/account/", //create the page
     name_first: "",
     name_last: "",
     email_address: "",
@@ -36,13 +36,20 @@ export default function MasterCardPage() {
         }`,
     };
 
-    await fetch("http//localhost:3000/graphql", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(requestBody),
-    });
+    await fetch(
+      `${
+        process.env.NODE_ENV === "production"
+          ? process.env.backend_server
+          : process.env.dev_server
+      }`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      }
+    );
   };
 
   useEffect(() => {

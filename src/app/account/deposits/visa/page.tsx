@@ -15,8 +15,11 @@ const VisaDepositPage = () => {
   const [paymentId, setPaymentId] = useState("");
 
   const [formData, setFormData] = useState<Record<string, string>>({
-    merchant_id: "23103831", //10000100
-    merchant_key: "z6cubevrh5ojc", //46f0cd694581a
+    merchant_id: `${
+      process.env.NODE_ENV === "production" ? "23103831" : "10000100"
+    }`,
+    merchant_key:
+      process.env.NODE_ENV === "production" ? "z6cubevrh5ojc" : "46f0cd694581a",
     return_url: "http://localhost:3001/account/deposits/successful/",
     cancel_url: "http://localhost:3001/account/deposits/",
     notify_url: "http://localhost:3001/account/",
@@ -36,8 +39,10 @@ const VisaDepositPage = () => {
   useEffect(() => {
     formData.signature = generateSignature(
       formData,
-      "a1Sdiwnzziworsdfwefadfbeargar"
-    ); //jt7NOE43FZPn
+      process.env.NODE_ENV === "production"
+        ? "a1Sdiwnzziworsdfwefadfbeargar"
+        : "jt7NOE43FZPn"
+    ); //
   }, [formData]);
 
   const handleInputChange = (
@@ -52,22 +57,29 @@ const VisaDepositPage = () => {
 
     const requestBody = {
       query: `
-mutation {
-  createDeposit(amount: ${formData.amount}, userId: "${userId}"){
-    depositAmount
+            mutation {
+                createDeposit(amount: ${formData.amount}, userId: "${userId}"){
+            depositAmount
   }
 }
 `,
     };
 
     try {
-      const response = await fetch("http://localhost:3000/graphql", {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      });
+      const response = await fetch(
+        `${
+          process.env.NODE_ENV === "production"
+            ? process.env.backend_server
+            : process.env.dev_server
+        }`,
+        {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestBody),
+        }
+      );
 
       Cookies.set("amount", formData.amount);
       return response.json();
@@ -78,7 +90,11 @@ mutation {
 
   return (
     <form
-      action="https://www.payfast.co.za/eng/process" //https://sandbox.payfast.co.za/eng/process
+      action={
+        process.env.NODE_ENV === "production"
+          ? "https://www.payfast.co.za/eng/process"
+          : "https://sandbox.payfast.co.za/eng/process"
+      }
       method="post"
       className="flex flex-col justify-center items-center"
       onSubmit={handleSubmit}

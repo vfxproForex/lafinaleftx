@@ -30,13 +30,20 @@ export default function AccountPage() {
     };
 
     try {
-      const response = await fetch("http://localhost:3000/graphql", {
-        method: "POST",
-        body: JSON.stringify(requestBody),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `${
+          process.env.NODE_ENV === "production"
+            ? process.env.backend_server
+            : process.env.dev_server
+        }`,
+        {
+          method: "POST",
+          body: JSON.stringify(requestBody),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const data = await response.json();
 
       console.log("user balance...");
@@ -71,13 +78,20 @@ export default function AccountPage() {
 `,
     };
 
-    const response = await fetch("http://localhost:3000/graphql", {
-      method: "POST",
-      body: JSON.stringify(requestBody),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      `${
+        process.env.NODE_ENV === "production"
+          ? process.env.backend_server
+          : process.env.dev_server
+      }`,
+      {
+        method: "POST",
+        body: JSON.stringify(requestBody),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     const data = await response.json();
 
@@ -100,13 +114,20 @@ export default function AccountPage() {
     };
 
     try {
-      const response = await fetch("http://localhost:3000/graphql", {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      });
+      const response = await fetch(
+        `${
+          process.env.NODE_ENV === "production"
+            ? process.env.backend_server
+            : process.env.dev_server
+        }`,
+        {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestBody),
+        }
+      );
 
       const data = await response.json();
       console.log("deposits...");

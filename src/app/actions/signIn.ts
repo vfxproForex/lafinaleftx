@@ -1,10 +1,6 @@
 "use server";
-
-import store from "@/utlis/store";
-import { addTokenAction } from "@/utlis/token";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { createAccountDetailsAction } from "@/utlis/accountDetails";
 
 export default async function signApi(email: string, password: string) {
   const requestBody = {
@@ -24,14 +20,21 @@ export default async function signApi(email: string, password: string) {
 `,
   };
 
-  const response = await fetch("http://localhost:3000/graphql", {
-    method: "POST",
-    body: JSON.stringify(requestBody),
-    headers: {
-      "Content-Type": "application/json",
-    },
-    credentials: "include",
-  });
+  const response = await fetch(
+    `${
+      process.env.NODE_ENV === "production"
+        ? process.env.backend_server
+        : process.env.dev_server
+    }`,
+    {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    }
+  );
 
   const data = await response.json();
 

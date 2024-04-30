@@ -67,13 +67,20 @@ mutation {
     };
 
     try {
-      const response = await fetch("http://localhost:3000/graphql", {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      });
+      const response = await fetch(
+        `${
+          process.env.NODE_ENV === "production"
+            ? process.env.backend_server
+            : process.env.dev_server
+        }`,
+        {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestBody),
+        }
+      );
 
       Cookies.set("amount", formData.amount);
       return response.json();
@@ -84,7 +91,11 @@ mutation {
 
   return (
     <form
-      action="https://sandbox.payfast.co.za/eng/process"
+      action={
+        process.env.NODE_ENV === "production"
+          ? "https://www.payfast.co.za/eng/process"
+          : "https://sandbox.payfast.co.za/eng/process"
+      }
       method="post"
       className="flex flex-col justify-center items-center"
       onSubmit={handleSubmit}

@@ -21,13 +21,20 @@ export default function SuccessPage() {
       };
 
       try {
-        const response = await fetch("http://localhost:3000/graphql", {
-          method: "post",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(requestBody),
-        });
+        const response = await fetch(
+          `${
+            process.env.NODE_ENV === "production"
+              ? process.env.backend_server
+              : process.env.dev_server
+          }`,
+          {
+            method: "post",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(requestBody),
+          }
+        );
         const data = await response.json();
         console.log(data.data);
 

@@ -19,17 +19,25 @@ export default function ConfirmAccountPage({
 `,
       };
 
-      const response = await fetch("http://127.0.0.1:3000/graphql", {
-        method: "post",
-        body: JSON.stringify(requestBody),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }).then((res) => {
-        res.json();
+      const response = await fetch(
+        `${
+          process.env.NODE_ENV === "production"
+            ? process.env.backend_server
+            : process.env.dev_server
+        }`,
+        {
+          method: "post",
+          body: JSON.stringify(requestBody),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      ).then(async (res) => {
+        await res.json();
       });
 
-      const data = response;
+      const data = await response;
+      route.push("/signin");
       return data;
     } catch (err) {
       console.log(err);
