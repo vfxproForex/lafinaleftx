@@ -14,21 +14,22 @@ export default function ConfirmAccountPage({
       const requestBody = {
         query: `
         mutation {
-            confirmEmail(id: "${params.slug}")
+            confirmEmail( id: "${params.slug}")
         }
 `,
       };
 
       const response = await fetch("http://localhost:3000/graphql", {
-        method: "POST",
+        method: "post",
         body: JSON.stringify(requestBody),
         headers: {
           "Content-Type": "application/json",
         },
+      }).then((res) => {
+        res.json();
       });
 
-      const data = response.json();
-      console.log(data);
+      const data = response;
       return data;
     } catch (err) {
       console.log(err);
