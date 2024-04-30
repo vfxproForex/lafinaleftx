@@ -57,8 +57,8 @@ export default function WithdrawPage() {
     }
   };
   return (
-    <div className="flex flex-col gap-y-5 w-full">
-      <div className="flex pl-10 pr-10 pt-5 justify-between">
+    <div className="h-screen flex flex-col gap-y-5 w-full">
+      <div className="flex  justify-between bg-gradient-to-r from-[#BFBFBF] to-[#a2a2a2] p-5 m-5 rounded-lg items-center">
         <FaDollarSign style={{ color: "black", fontSize: "32" }} />
         <FaEuroSign style={{ color: "black", fontSize: "32" }} />
         <FaBitcoin style={{ color: "black", fontSize: "32" }} />
@@ -76,7 +76,7 @@ export default function WithdrawPage() {
         />
         <button
           onClick={createWithDrawal}
-          className="p-2 min-w-[20vh] max-w-[25vh] font-semibold bg-gray-500 rounded-md"
+          className="p-2 min-w-[20vh] max-w-[25vh] font-semibold bg-gradient-to-r from-[#BFBFBF] to-[#a2a2a2] rounded-md"
         >
           Request
         </button>

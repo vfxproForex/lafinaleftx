@@ -7,6 +7,7 @@ import MenuIcon from "@/lib/menu.icon";
 import { CloseIcon } from "@/lib/close.icon";
 import { Syne } from "next/font/google";
 import { useAppSelector } from "@/utlis/store";
+import { FaHome } from "react-icons/fa";
 
 const syne = Syne({ subsets: ["latin"] });
 
@@ -50,8 +51,9 @@ export default function AccountNav() {
         <div className={"px-3 py-3"}>
           <Link
             href={"/account"}
-            className={`text-xl font-semibold ${syne.className}`}
+            className={`text-xl font-semibold ${syne.className} flex items-center gap-x-1`}
           >
+            <FaHome style={{ color: "black", fontSize: "20px" }} />
             Pinnacle
           </Link>
         </div>
