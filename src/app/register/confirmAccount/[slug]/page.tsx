@@ -9,31 +9,30 @@ export default function ConfirmAccountPage({
 }) {
   const route = useRouter();
   const confirmEmailHandler = async () => {
-    const requestBody = {
-      query: `
+    try {
+      const requestBody = {
+        query: `
         mutation {
             confirmEmail(id: "${params.slug}")
         }
 `,
-    };
+      };
 
-    const response = await fetch("http://localhost:3000/graphql", {
-      method: "POST",
-      body: JSON.stringify(requestBody),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    return await toast
-      .promise(response.json(), {
-        loading: "Loading",
-        success: "Welcome To Pinnacle FTX Fellow Trader.",
-        error: "Please contact support, unable to confirm email.",
-      })
-      .then(() => {
-        return route.push("/signin");
+      const response = await fetch("http://localhost:3000/graphql", {
+        method: "POST",
+        body: JSON.stringify(requestBody),
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
+
+      const data = response.json();
+      console.log(data);
+      return data;
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
   };
 
   return (
