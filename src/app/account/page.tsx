@@ -4,10 +4,8 @@ import cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/utlis/store";
 import { createAccountDetailsAction } from "@/utlis/accountDetails";
-import Link from "next/link";
 import { getUserBalanceAction } from "@/utlis/user";
 import { createDepositAction } from "@/utlis/deposits";
-import DepositList from "@/components/depositList.ui";
 import BannerUI from "@/components/banner.ui";
 import TradeUI from "@/components/trade.ui";
 import ActiveTradesUI from "@/components/activeTrade.ui";
@@ -20,7 +18,9 @@ export default function AccountPage() {
   const cookie = cookies.get("qid");
   const setToken = async () => {
     if (!cookie) {
-      //return router.push("/signin");
+      return process.env.NODE_ENV === "production"
+        ? router.push("/signin")
+        : null;
     }
   };
 
