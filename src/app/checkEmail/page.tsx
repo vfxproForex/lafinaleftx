@@ -15,7 +15,7 @@ export default function CheckEmailPage() {
     toast("Please Confirm E-Mail");
   }, [path]);
   return (
-    <div className="h-screen w-screen flex flex-col justify-center gap-y-3 items-center align-middle">
+    <div className="h-screen w-screen flex flex-col p-5 justify-center gap-y-3 items-center align-middle">
       <div className="backdrop-blur-sm bg-white/30 w-full flex flex-col justify-center items-center gap-y-5  h-[50vh] m-5 p-2 rounded-md">
         <Image
           src={checkEmailImage}
