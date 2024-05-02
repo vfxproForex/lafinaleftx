@@ -8,6 +8,9 @@ import Link from "next/link";
 import { getUserBalanceAction } from "@/utlis/user";
 import { createDepositAction } from "@/utlis/deposits";
 import DepositList from "@/components/depositList.ui";
+import BannerUI from "@/components/banner.ui";
+import TradeUI from "@/components/trade.ui";
+import ActiveTradesUI from "@/components/activeTrade.ui";
 
 export default function AccountPage() {
   const deposits = useAppSelector((state) => state.deposits);
@@ -16,7 +19,7 @@ export default function AccountPage() {
   const cookie = cookies.get("qid");
   const setToken = async () => {
     if (!cookie) {
-      return router.push("/signin");
+      //return router.push("/signin");
     }
   };
 
@@ -157,11 +160,11 @@ export default function AccountPage() {
     }
   }, []);
   return (
-    <div
-      className={`h-[100%] w-screen flex flex-col gap-y-5  ${
-        deposits.length <= 0 ? "justify-center" : null
-      } items-center`}
-    >
+    <div className={``}>
+      <BannerUI />
+      <TradeUI />
+      <ActiveTradesUI />
+      With drawals Deposits
       {deposits.length <= 0 ? (
         <>
           <p className="text-gray-400 p-5 text-center">

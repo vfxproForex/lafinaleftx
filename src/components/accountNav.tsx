@@ -8,6 +8,8 @@ import { CloseIcon } from "@/lib/close.icon";
 import { Syne } from "next/font/google";
 import { useAppSelector } from "@/utlis/store";
 import { FaHome } from "react-icons/fa";
+import Cookies from "js-cookie";
+import { redirect } from "next/navigation";
 
 const syne = Syne({ subsets: ["latin"] });
 
@@ -30,10 +32,7 @@ export default function AccountNav() {
   return (
     <HeaderNavigation>
       {toggleMenu ? (
-        <div>
-          <li className="text-gray-500  px-3 py-3">
-            <Link href={"/account/accountDetails/"}>Account Details</Link>
-          </li>
+        <div className="">
           <li className="text-gray-500 shadow-md rounded-md px-3 py-3">
             <Link href={"/account/deposits"}>Make a Deposit</Link>
           </li>
@@ -41,10 +40,24 @@ export default function AccountNav() {
             <Link href={"/account/withdraw"}>Withdraw</Link>
           </li>
           <li className="text-gray-500  px-3 py-3">
-            <Link href={"#"}>Sign Out</Link>
+            <Link href={"/account/withdrawals/"}>Withdrawals</Link>
+          </li>
+          <li className="text-gray-500  px-3 py-3">
+            <Link href={"/account/transactions/"}>Transactions</Link>
           </li>
           <li className="px-3 py-3 ">
             <p>Current Balance: {userBalance}</p>
+          </li>
+          <li className="text-gray-500  px-3 py-3">
+            <button
+              className={"text-red-500 font-bold"}
+              onClick={async () => {
+                await Cookies.remove("qid");
+                redirect("/signin");
+              }}
+            >
+              Sign Out
+            </button>
           </li>
         </div>
       ) : (

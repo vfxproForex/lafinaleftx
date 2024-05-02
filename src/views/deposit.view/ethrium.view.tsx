@@ -7,7 +7,7 @@ export default function EthriumModal() {
   return (
     <>
       <div>
-        <p className="font-medium mb-5">
+        <p className="text-md font-medium mb-5">
           How to fund your account with USDT-TRC20
         </p>
         <p className="pl-8 mb-3">
@@ -37,7 +37,7 @@ export default function EthriumModal() {
               closeOnClick: true,
               transition: Bounce,
             });
-            navigator.clipboard.writeText("17ATNmEq5qfebDTSj445NckfC4nY1rJtHP");
+            navigator.clipboard.writeText("0x1128b2cac1c8c10748b2770a4cbb4fd8902cdd1a");
           }}
         >
           Copy Deposit Address
