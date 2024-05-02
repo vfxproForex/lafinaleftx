@@ -3,7 +3,6 @@ import Cookies from "js-cookie";
 
 export default async function CreateWithDrawApi(amount: string) {
   const cookie = Cookies.get("qid");
-  const amount = amountRef.current?.value;
 
   const requestBody = {
     query: `
@@ -36,7 +35,6 @@ export default async function CreateWithDrawApi(amount: string) {
 
     const data = await response.json();
     console.log(data);
-    dispatch(createWithDrawAction(data.data.createWithdraw.withdrawalAmount));
   } catch (err) {
     console.log(`Error creating deposit: ${err}`);
   }
