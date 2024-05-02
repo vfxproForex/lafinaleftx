@@ -11,6 +11,7 @@ import DepositList from "@/components/depositList.ui";
 import BannerUI from "@/components/banner.ui";
 import TradeUI from "@/components/trade.ui";
 import ActiveTradesUI from "@/components/activeTrade.ui";
+import UserCardUI from "@/components/userCard.ui";
 
 export default function AccountPage() {
   const deposits = useAppSelector((state) => state.deposits);
@@ -161,6 +162,7 @@ export default function AccountPage() {
   }, []);
   return (
     <div className={``}>
+      <UserCardUI />
       <BannerUI />
       <TradeUI />
       <ActiveTradesUI />

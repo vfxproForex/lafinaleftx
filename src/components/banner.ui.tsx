@@ -1,6 +1,9 @@
+'use client';
+import { useAppSelector } from "@/utlis/store";
 import { FC } from "react";
 
 const BannerUI: FC = () => {
+    const userBalance = useAppSelector((state) => {return state.userState})
   return (
     <div>
       <label className="text-md text-cs_text-100 ml-5 font-bold">

@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import HeaderNavigation from "./nav";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IconButton } from "./icon.button";
 import MenuIcon from "@/lib/menu.icon";
 import { CloseIcon } from "@/lib/close.icon";
@@ -9,11 +9,13 @@ import { Syne } from "next/font/google";
 import { useAppSelector } from "@/utlis/store";
 import { FaHome } from "react-icons/fa";
 import Cookies from "js-cookie";
-import { redirect } from "next/navigation";
+import { redirect, useRouter, usePathname } from "next/navigation";
 
 const syne = Syne({ subsets: ["latin"] });
 
 export default function AccountNav() {
+  const path = usePathname();
+
   const userBalance = useAppSelector((state) => {
     const currentBalance = new Intl.NumberFormat("en-ZA", {
       style: "currency",
@@ -29,12 +31,17 @@ export default function AccountNav() {
       return setToggleMenu(true);
     }
   }
+
+  //routing detecting
+  useEffect(() => {
+    setToggleMenu(false);
+  }, [path]);
   return (
     <HeaderNavigation>
       {toggleMenu ? (
         <div className="">
-          <li className="text-gray-500 shadow-md rounded-md px-3 py-3">
-            <Link href={"/account/deposits"}>Make a Deposit</Link>
+          <li className="text-gray-500 shadow-md rounded-md px-3 py-3 animate-pulse shadow-black font-bold mt-2">
+            <Link href={"/account/deposits"}>Fund My Account</Link>
           </li>
           <li className="text-gray-500 rounded-md px-3 py-3">
             <Link href={"/account/withdraw"}>Withdraw</Link>
@@ -44,9 +51,6 @@ export default function AccountNav() {
           </li>
           <li className="text-gray-500  px-3 py-3">
             <Link href={"/account/transactions/"}>Transactions</Link>
-          </li>
-          <li className="px-3 py-3 ">
-            <p>Current Balance: {userBalance}</p>
           </li>
           <li className="text-gray-500  px-3 py-3">
             <button
@@ -66,8 +70,8 @@ export default function AccountNav() {
             href={"/account"}
             className={`text-xl font-semibold ${syne.className} flex items-center gap-x-1`}
           >
-            <FaHome style={{ color: "black", fontSize: "20px" }} />
-            Pinnacle
+            <FaHome style={{ color: "white", fontSize: "20px" }} />
+            Pinnacle FTX
           </Link>
         </div>
       )}
