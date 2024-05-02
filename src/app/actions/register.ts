@@ -1,6 +1,7 @@
 "use server";
 
-export default async function registerApi(email: any, password: any) {
+export default async function registerApi( email: any, password: any) {
+
   const query = `
 mutation {
   register(

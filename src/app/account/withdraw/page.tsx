@@ -8,7 +8,6 @@ import {
 } from "react-icons/fa";
 import { useRef } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { createWithDrawAction } from "@/utlis/withdraws";
 import BannerUI from "@/components/banner.ui";
 import SubmitButton from "@/components/submitButton";
 
