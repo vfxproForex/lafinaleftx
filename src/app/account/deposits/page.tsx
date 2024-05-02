@@ -13,7 +13,7 @@ import {
 } from "react-icons/fa";
 export default function DepositPage() {
   const [toggleBitcoin, setToggleBitcoin] = useState<boolean>(false);
-  const [toggleEthrium, setEthrium] = useState<boolean>(true);
+  const [toggleEthrium, setEthrium] = useState<boolean>(false);
 
   const toggleModalHandler = () => {
     if (toggleBitcoin) {
@@ -31,35 +31,53 @@ export default function DepositPage() {
     }
   };
   return (
-    <div
-      className={
-        "h-screen w-screen overflow-y-scroll flex flex-col gap-y-5 justify-center p-2 items-center"
-      }
-    >
-      <h1 className="text-2xl font-medium text-gray-400">
-        Select Deposit Method.
+    <div className={"h-screen"}>
+      <h1
+        className={`p-2 m-2 text-lg bg-cs_bg-200 shadow-lg text-cs_text-200 rounded-md flex-none w-2/4`}
+      >
+        Deposit Methods
       </h1>
 
-      <div className="p-4  rounded-lg bg-gradient-to-r from-[#BFBFBF] to-[#a2a2a2] cursor-pointer flex justify-center shadow-md">
+      <label className="text-sm text-cs_text-200 p-2 m-2">
+        Card Transactions
+      </label>
+      <div className="">
+        <Link
+          href={"/account/deposits/cardtransaction/"}
+          className="grid grid-cols-2 p-2 m-6 rounded-lg place-items-center bg-cs_primary-100"
+        >
+          <FaCcMastercard
+            style={{ fontSize: "64" }}
+            className="text-cs_primary-300"
+          />
+          <FaCcVisa
+            style={{ fontSize: "64" }}
+            className="text-cs_primary-300"
+          />
+        </Link>
+      </div>
+      <label className="text-sm text-cs_text-200 p-2 m-2">
+        Bitcoin Transactions
+      </label>
+
+      <div className="grid grid-cols-1 p-2 m-6 rounded-lg place-items-center bg-cs_primary-100">
         <FaBitcoin
-          style={{ color: "black", fontSize: "64px" }}
+          style={{ fontSize: "64" }}
+          className="text-cs_primary-300"
           onClick={toggleModalHandler}
         />
       </div>
-      <div className="p-4  rounded-lg bg-gradient-to-r from-[#BFBFBF] to-[#a2a2a2] cursor-pointer flex justify-center shadow-md">
-        <FaEthereum style={{ color: "black", fontSize: "64px" }} />
+      <label className="text-sm text-cs_text-200 p-2 m-2">
+        Ethereum Transactions
+      </label>
+      <div className="grid grid-cols-1 p-2 m-6 rounded-lg place-items-center bg-cs_primary-100">
+        <FaEthereum
+          style={{ fontSize: "64" }}
+          className="text-cs_primary-300"
+          onClick={toggleEthriumHandler}
+        />
       </div>
 
-      <div className="p-4  rounded-lg bg-gradient-to-r from-[#BFBFBF] to-[#a2a2a2] cursor-pointer flex justify-center shadow-md">
-        <Link href={"/account/deposits/mastercard/"}>
-          <FaCcMastercard style={{ color: "black", fontSize: "64px" }} />
-        </Link>
-      </div>
-      <div className="p-4  rounded-lg bg-gradient-to-r from-[#BFBFBF] to-[#a2a2a2] cursor-pointer flex justify-center shadow-md">
-        <Link href={"/account/deposits/visa/"}>
-          <FaCcVisa style={{ color: "black", fontSize: "64px" }} />
-        </Link>
-      </div>
       {toggleBitcoin ? (
         <Modal onClick={toggleModalHandler}>
           <BitcoinModal />

@@ -1,8 +1,9 @@
 "use client";
-import { FaCcVisa } from "react-icons/fa";
+import { FaCcMastercard, FaCcVisa } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { v4 } from "uuid";
 import Cookies from "js-cookie";
+import SubmitButton from "@/components/submitButton";
 
 function generateSignature(
   data: Record<string, string>,
@@ -11,7 +12,7 @@ function generateSignature(
   return ""; // Placeholder, replace with your implementation
 }
 
-const VisaDepositPage = () => {
+const CardTransactionPage = () => {
   const [paymentId, setPaymentId] = useState("");
 
   const [formData, setFormData] = useState<Record<string, string>>({
@@ -105,47 +106,56 @@ const VisaDepositPage = () => {
             <input key={key} name={key} type="hidden" value={value.trim()} />
           )
       )}
-      <FaCcVisa className="mb-10" style={{ color: "black", fontSize: 128 }} />
+      <div className="grid grid-cols-2 gap-x-10 p-2 m-6 rounded-lg place-items-center bg-cs_primary-100">
+        <FaCcMastercard
+          style={{ fontSize: "64" }}
+          className="text-cs_primary-300"
+        />
+        <FaCcVisa style={{ fontSize: "64" }} className="text-cs_primary-300" />
+      </div>
       <div className="flex flex-col gap-y-5 p-5 w-full">
-        <h1 className="text-2xl font-medium">Deposit Details:</h1>
+        <h1
+          className={`p-2 text-lg bg-cs_bg-200 shadow-lg text-cs_text-200 rounded-md flex-none w-2/4`}
+        >
+          Deposit Details:
+        </h1>
         <div className="flex flex-col gap-y-2">
           <input
-            className="p-2 outline-none bg-gray-300 rounded-md"
+            className="bg-cs_primary-100 outline-none p-2 rounded-md m-2"
             placeholder="Deposit amount"
             type="number"
             onChange={(e) => handleInputChange(e, "amount")}
             value={formData.amount}
           />
           <input
-            className="p-2 outline-none bg-gray-300 rounded-md"
+            className="bg-cs_primary-100 outline-none p-2 rounded-md m-2"
             placeholder="First Name"
             onChange={(e) => handleInputChange(e, "name_first")}
             value={formData.name_first}
           />
           <input
-            className="p-2 outline-none bg-gray-300 rounded-md"
+            className="bg-cs_primary-100 outline-none p-2 rounded-md m-2"
             placeholder="Last Name"
             onChange={(e) => handleInputChange(e, "name_last")}
             value={formData.name_last}
           />
           <input
-            className="p-2 outline-none bg-gray-300 rounded-md"
+            className="bg-cs_primary-100 outline-none p-2 rounded-md m-2"
             placeholder="E-Mail Address"
             onChange={(e) => handleInputChange(e, "email_address")}
             value={formData.email_address}
           />
         </div>
         <div className="flex justify-center items-center">
-          <button
-            className="p-2 w-[20vh] font-semibold bg-gray-500 rounded-md"
-            type="submit"
-          >
-            Deposit
-          </button>
+          <SubmitButton
+            key={"deposit"}
+            loadingTitle="Deposit, Please wait"
+            buttonCaption="Deposit"
+          />
         </div>
       </div>
     </form>
   );
 };
 
-export default VisaDepositPage;
+export default CardTransactionPage;

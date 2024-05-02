@@ -1,4 +1,3 @@
-"use client";
 import Cookies from "js-cookie";
 
 export default async function CreateWithDrawApi(amount: string) {

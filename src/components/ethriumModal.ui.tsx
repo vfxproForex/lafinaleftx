@@ -13,16 +13,19 @@ const EthriumModal2: FC<IProps> = ({ children, onClick }) => {
   return (
     <div
       className={
-        "absolute flex flex-col justify-center items-center align-middle bg-black/70 h-screen w-screen"
+        "absolute flex flex-col justify-center items-center align-middle backdrop-blur-sm bg-white/5 h-screen w-screen"
       }
     >
       <div
         className={
-          "p-4 bg-white w-[80%] min-h-[50%] flex flex-col justify-between rounded-md"
+          "p-4 bg-cs_primary-100 m-3 flex flex-col justify-between rounded-md"
         }
       >
         <div className="flex justify-between mb-5">
-          <FaEthereum style={{ color: "black", fontSize: "64px" }} />
+          <FaEthereum
+            style={{ fontSize: "64" }}
+            className="text-cs_primary-300"
+          />
           <IconButton onClick={onClick}>
             <CloseIcon />
           </IconButton>
