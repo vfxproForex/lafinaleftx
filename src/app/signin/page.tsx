@@ -6,6 +6,7 @@ import { useEffect, useRef } from "react";
 import signApi from "../actions/signIn";
 import Cookies from "js-cookie";
 import { redirect } from "next/navigation";
+import SubmitButton from "@/components/submitButton";
 
 const syne = Syne({ subsets: ["latin"] });
 
@@ -65,13 +66,11 @@ export default function SignInPage() {
         </div>
       </div>
       <div className="flex flex-col gap-y-3 justify-center items-center ">
-        <button
-          type="submit"
-          className="bg-gray-500 w-[15vh] text-center p-2 rounded-md"
-          //aria-disabled={}
-        >
-          Sign In
-        </button>
+        <SubmitButton
+          key={"sign in"}
+          buttonCaption="Sign In"
+          loadingTitle="Signing In, please wait..."
+        />
         <Link
           className="text-center font-semibold text-blue-700"
           href={"/passwordReset"}
