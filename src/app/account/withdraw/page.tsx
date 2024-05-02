@@ -6,10 +6,11 @@ import {
   FaEthereum,
   FaEuroSign,
 } from "react-icons/fa";
-import Cookies from "js-cookie";
 import { useRef } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { createWithDrawAction } from "@/utlis/withdraws";
+import BannerUI from "@/components/banner.ui";
+import SubmitButton from "@/components/submitButton";
 
 export default function WithdrawPage() {
   const amountRef = useRef<HTMLInputElement>(null);
@@ -23,70 +24,47 @@ export default function WithdrawPage() {
   });
   const dispatch = useAppDispatch();
 
-  const createWithDrawal = async () => {
-    const cookie = Cookies.get("qid");
-    const amount = amountRef.current?.value;
-
-    const requestBody = {
-      query: `
-            mutation {
-              createWithdraw(amount: ${amount}, userId: "${cookie}"){
-                userId
-                withdrawDate
-                reference
-                withdrawalAmount
-              }
-            }
-`,
-    };
-
-    try {
-      const response = await fetch(
-        `${
-          process.env.NODE_ENV === "production"
-            ? process.env.backend_server
-            : process.env.dev_server
-        }`,
-        {
-          method: "post",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(requestBody),
-        }
-      );
-
-      const data = await response.json();
-      console.log(data);
-      dispatch(createWithDrawAction(data.data.createWithdraw.withdrawalAmount));
-    } catch (err) {
-      console.log(`Error creating deposit: ${err}`);
-    }
-  };
   return (
-    <div className="h-screen flex flex-col gap-y-5 w-full">
-      <div className="flex  justify-between bg-gradient-to-r from-[#BFBFBF] to-[#a2a2a2] p-5 m-5 rounded-lg items-center">
-        <FaDollarSign style={{ color: "black", fontSize: "32" }} />
-        <FaEuroSign style={{ color: "black", fontSize: "32" }} />
-        <FaBitcoin style={{ color: "black", fontSize: "32" }} />
-        <FaEthereum style={{ color: "black", fontSize: "32" }} />
+    <div className="grid grid-cols-1 gap-y-3">
+      <BannerUI />
+      <div className="flex justify-between p-5 bg-cs_primary-100">
+        <FaDollarSign
+          style={{ fontSize: "32" }}
+          className="text-cs_primary-300"
+        />
+        <FaEuroSign
+          style={{ fontSize: "32" }}
+          className="text-cs_primary-300"
+        />
+        <FaBitcoin style={{ fontSize: "32" }} className="text-cs_primary-300" />
+        <FaEthereum
+          style={{ fontSize: "32" }}
+          className="text-cs_primary-300"
+        />
       </div>
-      <div className="p-2 flex flex-col gap-y-5 justify-center items-center">
-        <h1 className="text-2xl font-medium text-center mb-10">
-          Withdraw Request
+      <div className="p-4">
+        <h1 className="text-md text-cs_text-100 mb-5 font-bold">
+          Withdrawal Request
         </h1>
-        <p className="font-semibold">Current Balance: {currentBalance}</p>
+        <label className="text-red-500 text-md underline-offset-1 font-bold">
+          Important Notice!!!
+        </label>
+        <p className="m-2 text font-medium text-red-400 italic">
+          Withdrawals will only be processed to bank accounts for your security
+          and convenience. Thank you for your cooperation.
+        </p>
         <input
-          className="p-2 outline-none bg-gray-300 rounded-md"
+          className="p-2 outline-none bg-gray-300 rounded-md w-full mb-5 mt-5"
           type="number"
           placeholder="Withdrawal Amount"
         />
-        <button
-          onClick={createWithDrawal}
-          className="p-2 min-w-[20vh] max-w-[25vh] font-semibold bg-gradient-to-r from-[#BFBFBF] to-[#a2a2a2] rounded-md"
-        >
-          Request
-        </button>
+        <div className="flex justify-center">
+          <SubmitButton
+            loadingTitle="Requesting..."
+            buttonCaption="Submit Request"
+            key={"withdrawal submit"}
+          />
+        </div>
       </div>
       <Toaster />
     </div>

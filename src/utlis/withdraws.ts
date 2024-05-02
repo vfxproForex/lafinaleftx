@@ -6,6 +6,8 @@ export interface IWithdraw {
   withdrawDate: Date;
   reference: string;
   withdrawalAmount: number;
+  //implement on server too
+  withdrawStatus: "Processing" | "Failed, Contact Support" | "Processed";
 }
 
 const initialState: IWithdraw[] = [];

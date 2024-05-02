@@ -3,33 +3,41 @@ import Cookies from "js-cookie";
 
 export default async function CreateWithDrawApi(amount: string) {
   const cookie = Cookies.get("qid");
+  const amount = amountRef.current?.value;
 
   const requestBody = {
     query: `
-    mutation {
-        createWithdraw(amount: "${amount}", userId: "${cookie}"){
-            userId
-            withdrawDate
-            reference
-            withdrawalAmount
-  }
-}
+            mutation {
+              createWithdraw(amount: ${amount}, userId: "${cookie}"){
+                userId
+                withdrawDate
+                reference
+                withdrawalAmount
+              }
+            }
 `,
   };
 
-  const response = await fetch("http://localhost:3000", {
-    method: "POST",
-    headers: {
-      "Context-Tye": "application/json",
-    },
-    body: JSON.stringify(requestBody),
-  });
+  try {
+    const response = await fetch(
+      `${
+        process.env.NODE_ENV === "production"
+          ? process.env.backend_server
+          : process.env.dev_server
+      }`,
+      {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      }
+    );
 
-  const data = response.json();
-
-  if (!response.ok) {
-    return null;
-  } else {
-    //data
+    const data = await response.json();
+    console.log(data);
+    dispatch(createWithDrawAction(data.data.createWithdraw.withdrawalAmount));
+  } catch (err) {
+    console.log(`Error creating deposit: ${err}`);
   }
 }

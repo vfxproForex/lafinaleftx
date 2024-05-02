@@ -14,7 +14,7 @@ export default function AccountLayout({
   return (
     <Provider store={storeRef.current}>
       <AccountNav />
-      <div className="overflow-auto">{children}</div>
+      {children}
     </Provider>
   );
 }

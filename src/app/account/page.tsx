@@ -164,24 +164,6 @@ export default function AccountPage() {
       <BannerUI />
       <TradeUI />
       <ActiveTradesUI />
-      With drawals Deposits
-      {deposits.length <= 0 ? (
-        <>
-          <p className="text-gray-400 p-5 text-center">
-            Activate your account in order to see current trades.
-          </p>
-          <Link
-            href={"/account/deposits/"}
-            className="p-2 bg-gray-300 rounded-lg"
-          >
-            Activate Account
-          </Link>
-        </>
-      ) : (
-        <>
-          <DepositList />
-        </>
-      )}
     </div>
   );
 }

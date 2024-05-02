@@ -16,10 +16,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.className} h-full w-full overflow-auto bg-cs_bg-100`}
-      >
-        <div className={"h-full"}>{children}</div>
+      <body className={`${inter.className} h-screen w-screen bg-cs_bg-100`}>
+        {children}
       </body>
     </html>
   );
