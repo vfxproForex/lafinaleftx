@@ -1,7 +1,7 @@
 "use client";
 import { Syne } from "next/font/google";
 import Link from "next/link";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useEffect, useRef } from "react";
 import signApi from "../actions/signIn";
 import Cookies from "js-cookie";
@@ -22,11 +22,11 @@ export default function SignInPage() {
     try {
       await toast.promise(signApi(email!, password!), {
         success: "Welcome",
-        error: "Error",
-        loading: "Loading...",
+        error: (error) => error.message,
+        loading: "Signing In...",
       });
     } catch (err: any) {
-      toast.error(err.message);
+      return err;
     }
   };
 
@@ -34,7 +34,7 @@ export default function SignInPage() {
     const checkCookie = Cookies.get("qid");
 
     if (checkCookie?.length !== undefined) {
-      return redirect("/account");
+      return redirect("/account/");
     }
   }, []);
   return (
@@ -42,7 +42,7 @@ export default function SignInPage() {
       onSubmit={onSubmit}
       className="h-screen w-screen flex gap-y-5 flex-col p-2 justify-center align-middle"
     >
-      <div className="bg-gray-300 rounded-md shadow-md p-2 ml-10 mr-10 h-[13vh] flex flex-col justify-center align-middle">
+      <div className="bg-gray-300 rounded-md shadow-md p-2 ml-10 mr-10 min:h-[13vh] flex flex-col justify-center align-middle">
         <h1 className={`text-3xl font-bold ${syne.className} text-center`}>
           Pinnacle FTX
         </h1>
@@ -78,7 +78,6 @@ export default function SignInPage() {
           Forgot password?
         </Link>
       </div>
-      <Toaster />
     </form>
   );
 }
