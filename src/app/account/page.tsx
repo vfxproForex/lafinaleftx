@@ -5,11 +5,15 @@ import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/utlis/store";
 import { createAccountDetailsAction } from "@/utlis/accountDetails";
 import { getUserBalanceAction } from "@/utlis/user";
-import { createDepositAction } from "@/utlis/deposits";
+import { IDeposit, createDepositAction } from "@/utlis/deposits";
 import BannerUI from "@/components/banner.ui";
 import TradeUI from "@/components/trade.ui";
 import ActiveTradesUI from "@/components/activeTrade.ui";
 import UserCardUI from "@/components/userCard.ui";
+import getDepositsApi from "../actions/getDepositsApi";
+import getUserBalanceApi from "../actions/getBalanceApi";
+import { getAccountDetailsApi } from "../actions/getAccountDetails";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function AccountPage() {
   const deposits = useAppSelector((state) => state.deposits);
@@ -25,120 +29,40 @@ export default function AccountPage() {
   };
 
   const getAccountBalance = async () => {
-    const requestBody = {
-      query: `
-         query {
-            getBalance(userId: "${cookie}")
-            }
-        `,
-    };
-
     try {
-      const response = await fetch(
-        `${
-          process.env.NODE_ENV === "production"
-            ? process.env.backend_server
-            : process.env.dev_server
-        }`,
-        {
-          method: "POST",
-          body: JSON.stringify(requestBody),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const data = await response.json();
-
-      console.log("user balance...");
-      const amount = data.data.getBalance;
-
-      dispatch(getUserBalanceAction({ balance: amount }));
+      const userBalance = await toast.promise(getUserBalanceApi(cookie!), {
+        loading: "Loading Account balance, please wait.",
+        error: "Please make a deposit, account balanc is 0.00",
+        success: "Account details up to date.",
+      });
+      dispatch(getUserBalanceAction({ balance: userBalance }));
     } catch (err) {
       throw err;
     }
   };
   const getAccountDetails = async () => {
-    const requestBody = {
-      query: `
-        query {
-            userDetails(userId: "${cookie}") {
-            firstname
-            middleName
-            lastname
-            contactNumber
-            bankName
-            accountName
-            accountNumber
-            accountType
-            nameOnCard
-            cardNumber
-            expiryDate
-            cvv
-	        userId
-            currentBalance
-  }
-}
-`,
-    };
-
-    const response = await fetch(
-      `${
-        process.env.NODE_ENV === "production"
-          ? process.env.backend_server
-          : process.env.dev_server
-      }`,
-      {
-        method: "POST",
-        body: JSON.stringify(requestBody),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    const data = await response.json();
+    const userId = cookie;
+    const data = await toast.promise(getAccountDetailsApi(userId!), {
+      success: "Account details updated",
+      error: "Please update user details for withdrawal purposes.",
+      loading: "Loading Account details",
+    });
 
     dispatch(createAccountDetailsAction(data.data.userDetails));
   };
   const getDeposit = async () => {
     const userId = cookie;
-    const requestBody = {
-      query: `
-            query {
-                deposits(id: "${userId}"){
-                    userId
-                    status
-                    depositDate
-                    refernce
-                    depositAmount
-                    depositStatus
-                }
-            }
-`,
-    };
 
     try {
-      const response = await fetch(
-        `${
-          process.env.NODE_ENV === "production"
-            ? process.env.backend_server
-            : process.env.dev_server
-        }`,
+      const apiDeposits: IDeposit[] = await toast.promise(
+        getDepositsApi(userId!),
         {
-          method: "post",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(requestBody),
+          loading: "Loading Transactions",
+          error: "No deposits found, please fund account to starting trading.",
+          success: "Deposits loaded.",
         }
       );
-
-      const data = await response.json();
-
-      const userDeposits: [] = data.data.deposits;
-
-      return userDeposits.map((deposit) => {
+      return apiDeposits.map((deposit) => {
         dispatch(createDepositAction(deposit));
       });
     } catch (err) {
@@ -165,6 +89,7 @@ export default function AccountPage() {
       <BannerUI />
       <TradeUI />
       <ActiveTradesUI />
+      <Toaster />
     </div>
   );
 }

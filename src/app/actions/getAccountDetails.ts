@@ -1,6 +1,4 @@
 "use client";
-import { createAccountDetailsAction } from "@/utlis/accountDetails";
-import store from "@/utlis/store";
 
 export const getAccountDetailsApi = async (cookie: string) => {
   const requestBody = {
@@ -43,8 +41,5 @@ export const getAccountDetailsApi = async (cookie: string) => {
 
   const data = await response.json();
 
-  console.log("running...");
-  console.log(data);
-
-  return store.dispatch(createAccountDetailsAction(data.data.userDetails));
+  return data.data.userDetails;
 };

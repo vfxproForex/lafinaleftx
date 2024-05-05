@@ -3,10 +3,13 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import cookies from "js-cookie";
-import { useAppSelector } from "@/utlis/store";
+import { useAppDispatch, useAppSelector } from "@/utlis/store";
+import CreateUserDetailsApi from "@/app/actions/addUserDetailsApi";
+import { createAccountDetailsAction } from "@/utlis/accountDetails";
 
 export default function UserDetailsPage() {
   const accountDetails = useAppSelector((state) => state.accountDetails);
+  const dispatch = useAppDispatch();
 
   const firstNameRef = useRef<HTMLInputElement>(null);
   const middleNameRef = useRef<HTMLInputElement>(null);
@@ -24,7 +27,7 @@ export default function UserDetailsPage() {
   async function postUserDetails(e: any) {
     e.preventDefault();
 
-    const userIdCookie = cookies.get("qid");
+    const userId = cookies.get("qid");
 
     const firstName = firstNameRef.current?.value;
     const middleName = middleNameRef.current?.value;
@@ -39,66 +42,34 @@ export default function UserDetailsPage() {
     const expiryDate = expiryDateRef.current?.value;
     const cvvNumber = cvvNumberRef.current?.value;
 
-    const requestBody = {
-      query: `
-mutation {
-  updateDetailsOrCrateDetails(
-    userDetailsInput:{
-      firstname:"${firstName}",
-      middleName: "${middleName}",
-      lastname: "${lastname}",
-      contactNumber: "${contactNumber}",
-      bankName: "${bankName}",
-      accountName: "${accountName}",
-      accountNumber: "${accountNumber}",
-      accountType: "${accountType}",
-      nameOnCard: "${nameOnCard}",
-      cardNumber:"${cardNumber}",
-      expiryDate: "${expiryDate}",
-      cvv: "${cvvNumber}",
-      userId: "${userIdCookie}",
+    try {
+      const userDetails = await toast.promise(
+        CreateUserDetailsApi(
+          firstName!,
+          middleName!,
+          lastname!,
+          contactNumber!,
+          bankName!,
+          accountName!,
+          accountNumber!,
+          accountType!,
+          nameOnCard!,
+          cardNumber!,
+          expiryDate!,
+          cvvNumber!,
+          userId!
+        ),
+        {
+          loading: "Loading",
+          success: "Saved",
+          error: "Error",
+        }
+      );
+      dispatch(createAccountDetailsAction(userDetails));
+    } catch (err) {
+      console.log(err);
+      throw err;
     }
-    userId: "${userIdCookie}"
-  ) {
-
-
-    firstname
-    middleName
-    lastname
-    contactNumber
-    bankName
-    accountName
-    accountNumber
-    accountType
-    nameOnCard
-    cardNumber
-    expiryDate
-    cvv
-  }
-}
-`,
-    };
-
-    const response = await fetch(
-      `${
-        process.env.NODE_ENV === "production"
-          ? process.env.backend_server
-          : process.env.dev_server
-      }`,
-      {
-        method: "post",
-        body: JSON.stringify(requestBody),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    toast.promise(response.json(), {
-      loading: "Loading",
-      success: "Saved",
-      error: "Error",
-    });
   }
 
   const router = useRouter();
@@ -111,6 +82,20 @@ mutation {
   };
 
   useEffect(() => {
+    if (accountDetails.userId !== undefined || null) {
+      firstNameRef.current!.value = accountDetails.firstname || "";
+      middleNameRef.current!.value = accountDetails.middleName || "";
+      lastNameRef.current!.value = accountDetails.lastname || "";
+      contactNumberRef.current!.value = accountDetails.contactNumber || "";
+      bankNameRef.current!.value = accountDetails.bankName || "";
+      nameOnCardRef.current!.value = accountDetails.nameOnCard || "";
+      accountTypeRef.current!.value = accountDetails.accountType || "";
+      accountNameRef.current!.value = accountDetails.accountName || "";
+      accountNumberRef.current!.value = accountDetails.accountNumber || "";
+      cardNumberRef.current!.value = accountDetails.cardNumber || "";
+      expiryDateRef.current!.value = accountDetails.expiryDate || "";
+      cvvNumberRef.current!.value = accountDetails.cvv || "";
+    }
     setToken();
   }, []);
   return (

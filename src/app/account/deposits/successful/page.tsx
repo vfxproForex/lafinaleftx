@@ -7,7 +7,6 @@ import { useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import Cookies from "js-cookie";
 import {  useRouter } from "next/navigation";
-import { root } from "postcss";
 
 export default function SuccessPage() {
   const dispatch = useAppDispatch();

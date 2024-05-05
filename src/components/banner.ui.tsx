@@ -14,15 +14,15 @@ const BannerUI: FC = () => {
       <div className="bg-cs_primary-100 shadow-lg  mt-5 rounded-lg pt-6 pb-6 grid grid-cols-3 divide-x-[3px] ">
         <div className="pl-4 text-cs_primary-300 flex flex-col justify-between">
           <label className="text-sm">Copy Trading Available Balance</label>
-          <label className="text-lg font-semibold">R 500.00</label>
+          <label className="text-lg font-semibold">{userBalance.balance}</label>
         </div>
         <div className="pl-4 text-cs_primary-300 flex flex-col justify-between">
           <label className="text-sm">Current Balance</label>
-          <label className="text-lg font-semibold">R 1 800.00</label>
+          <label className="text-lg font-semibold">{userBalance.balance}</label>
         </div>
         <div className="pl-4 text-cs_primary-300 flex flex-col justify-between">
           <label className="text-sm">Profit/Loss</label>
-          <label className="text-lg font-semibold">(R 600.00)</label>
+          <label className="text-lg font-semibold">0.00</label>
         </div>
       </div>
     </div>
