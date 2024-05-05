@@ -1,5 +1,4 @@
 "use server";
-import Cookies from "js-cookie";
 
 export default async function ConfirmDepositApi(
   userId: string,
@@ -8,7 +7,17 @@ export default async function ConfirmDepositApi(
   const requestBody = await {
     query: `
             mutation {
-                    confirmDeposit(amount: ${amount}, userId: "${userId}")
+                    confirmDeposit(amount: ${amount}, userId: "${userId}"){
+    status
+    deposit {
+      userId
+      depositDate
+      refernce
+      depositAmount
+      depositStatus
+      status
+    }
+}
                 }
 `,
   };
@@ -31,15 +40,7 @@ export default async function ConfirmDepositApi(
     );
     const data = await response.json();
 
-    if (data.data.confirmDeposit.status) {
-      console.log(`From SSR: ${data.data.confirmDeposit.deposit}`);
-      return data;
-      //return redirect("/account/");
-    } else if (data.data.login.error) {
-      throw new Error(data.data.login.error.message);
-    } else {
-      throw new Error("Unknown error occurred.");
-    }
+    return data.data.confirmDeposit;
   } catch (err) {
     console.log(`Error backend: ${err}`);
     return err;

@@ -6,30 +6,32 @@ import { useAppDispatch } from "@/utlis/store";
 import { useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import Cookies from "js-cookie";
-import { redirect } from "next/navigation";
+import {  useRouter } from "next/navigation";
+import { root } from "postcss";
 
 export default function SuccessPage() {
   const dispatch = useAppDispatch();
+    const router = useRouter()
   const awaitDeposit = async () => {
-    const amount = await Cookies!.get("amount");
-    const userId = await Cookies!.get("qid");
-    try {
-      await toast
-        .promise(ConfirmDepositApi(userId!, amount!), {
-          loading: "Confirm Deposit, please wait.",
-          success: "Deposit Success!",
-          error: "Deposit Failed, please try again",
-        })
-        .then(async (x) => {
-          console.log(`then block: ${x}`);
+    const amount = Cookies.get("amount");
+    const userId = Cookies.get("qid");
 
-          await dispatch(createDepositAction(amount));
-          await Cookies.remove("amount");
-          redirect("/account/");
-        });
+    try {
+      const depositConfirmation = await ConfirmDepositApi(userId!, amount!);
+      console.log(depositConfirmation.deposit);
+
+      if (depositConfirmation.status) {
+        console.log(depositConfirmation.deposit);
+        await toast.success("Deposit Success!");
+        await dispatch(createDepositAction(depositConfirmation.deposit));
+        await Cookies.remove("amount");
+        router.push("/account/"); // Redirect on success
+      } else {
+        throw new Error("Deposit Failed"); // Handle failure
+      }
     } catch (err) {
-      console.log(`Error fronted: ${err}`);
-      return err;
+      console.log(`Error frontend: ${err}`);
+      await toast.error("Deposit Failed, please try again");
     }
   };
   useEffect(() => {
