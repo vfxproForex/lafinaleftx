@@ -21,15 +21,20 @@ const CardTransactionPage = () => {
     }`,
     merchant_key:
       process.env.NODE_ENV === "production" ? "z6cubevrh5ojc" : "46f0cd694581a",
-    return_url: "http://localhost:3001/account/deposits/successful/",
-    cancel_url: "http://localhost:3001/account/deposits/",
-    notify_url: "http://localhost:3001/account/",
+    return_url:
+      process.env.NODE_ENV === "production"
+        ? `${process.env.PAYFAST_PROD}/account/deposits/successful/`
+        : `${process.env.PAYFAST_DEV}/account/deposits/successful/`,
+    cancel_url:
+      process.env.NODE_ENV === "production"
+        ? `${process.env.PAYFAST_PROD}/account/deposits/`
+        : `${process.env.PAYFAST_DEV}/account/deposits/`,
     name_first: "",
     name_last: "",
     email_address: "",
     m_payment_id: paymentId,
     amount: "",
-    item_name: "Pinnacle FTX",
+    item_name: "Pinnacle FTX Account Deposit",
   });
 
   useEffect(() => {
@@ -82,7 +87,7 @@ const CardTransactionPage = () => {
         }
       );
 
-      Cookies.set("amount", formData.amount);
+      await Cookies.set("amount", await `${formData.amount}`);
       return response.json();
     } catch (err) {
       throw err;
@@ -152,6 +157,14 @@ const CardTransactionPage = () => {
             loadingTitle="Deposit, Please wait"
             buttonCaption="Deposit"
           />
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              console.log(process.env.dev_server);
+            }}
+          >
+            Test
+          </button>
         </div>
       </div>
     </form>

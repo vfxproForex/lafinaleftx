@@ -9,7 +9,7 @@ import { Syne } from "next/font/google";
 import { useAppSelector } from "@/utlis/store";
 import { FaHome } from "react-icons/fa";
 import Cookies from "js-cookie";
-import { redirect, useRouter, usePathname } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 
 const syne = Syne({ subsets: ["latin"] });
 

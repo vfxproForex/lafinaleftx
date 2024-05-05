@@ -16,6 +16,7 @@ export default function SignInPage() {
 
   const onSubmit = async (e: any) => {
     e.preventDefault();
+
     const email = emailRef.current?.value;
     const password = passwordRef.current?.value;
 

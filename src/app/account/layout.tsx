@@ -12,9 +12,11 @@ export default function AccountLayout({
     storeRef.current = makeStore();
   }
   return (
-    <Provider store={storeRef.current}>
-      <AccountNav />
-      {children}
-    </Provider>
+    <div className="w-full h-full">
+      <Provider store={storeRef.current}>
+        <AccountNav />
+        {children}
+      </Provider>
+    </div>
   );
 }

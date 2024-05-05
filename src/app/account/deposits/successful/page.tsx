@@ -1,64 +1,44 @@
 "use client";
 
+import ConfirmDepositApi from "@/app/actions/confirmDepost";
+import { createDepositAction } from "@/utlis/deposits";
+import { useAppDispatch } from "@/utlis/store";
 import { useEffect } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import Cookies from "js-cookie";
 import { redirect } from "next/navigation";
 
 export default function SuccessPage() {
-  //show notifiction
+  const dispatch = useAppDispatch();
+  const awaitDeposit = async () => {
+    const amount = await Cookies!.get("amount");
+    const userId = await Cookies!.get("qid");
+    try {
+      await toast
+        .promise(ConfirmDepositApi(userId!, amount!), {
+          loading: "Confirm Deposit, please wait.",
+          success: "Deposit Success!",
+          error: "Deposit Failed, please try again",
+        })
+        .then(async (x) => {
+          console.log(`then block: ${x}`);
 
-  async function confirmDeposit() {
-    if (Cookies.get("amount") !== undefined) {
-      const amount = Cookies.get("amount");
-      const userId = Cookies.get("qid");
-
-      const requestBody = {
-        query: `
-            mutation {
-                    confirmDeposit(amount: ${amount}, userId: "${userId}")
-                }
-`,
-      };
-
-      try {
-        const response = await fetch(
-          `${
-            process.env.NODE_ENV === "production"
-              ? process.env.backend_server
-              : process.env.dev_server
-          }`,
-          {
-            method: "post",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(requestBody),
-          }
-        );
-        const data = await response.json();
-        console.log(data.data);
-
-        if (data.data.confirmDeposit === true) {
-          console.log(data.data.confirmDeposit);
-          Cookies.remove("amount");
-          return redirect("/account");
-        }
-        return response;
-      } catch (err) {
-        return redirect("/account");
-      }
-    } else {
-      return redirect("/account");
+          await dispatch(createDepositAction(amount));
+          await Cookies.remove("amount");
+          redirect("/account/");
+        });
+    } catch (err) {
+      console.log(`Error fronted: ${err}`);
+      return err;
     }
-  }
-
+  };
   useEffect(() => {
-    confirmDeposit();
+    awaitDeposit();
   }, []);
 
   return (
     <div>
-      <h1>Deposit Success</h1>
+      <Toaster />
     </div>
   );
 }

@@ -40,13 +40,13 @@ export default async function signApi(email: string, password: string) {
     const data = await response.json();
 
     if (data.data.login.token) {
-      cookies().set({
+      await cookies().set({
         value: data.data.login.token,
         name: "qid",
         path: "/",
       });
       //get user details
-      redirect("/account");
+      return redirect("/account/");
     } else if (data.data.login.error) {
       throw new Error(data.data.login.error.message);
     } else {

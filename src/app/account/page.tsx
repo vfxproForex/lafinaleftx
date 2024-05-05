@@ -112,6 +112,7 @@ export default function AccountPage() {
                     depositDate
                     refernce
                     depositAmount
+                    depositStatus
                 }
             }
 `,
@@ -134,8 +135,6 @@ export default function AccountPage() {
       );
 
       const data = await response.json();
-      console.log("deposits...");
-      console.log(data);
 
       const userDeposits: [] = data.data.deposits;
 
@@ -161,7 +160,7 @@ export default function AccountPage() {
     }
   }, []);
   return (
-    <div className={``}>
+    <div className="w-full">
       <UserCardUI />
       <BannerUI />
       <TradeUI />

@@ -54,7 +54,10 @@ const Deposits: FC<IProps> = (props) => {
                   {deposit.depositStatus}
                 </label>
                 <label className="text-lg text-green-500 font-bold">
-                  {deposit.depositAmount}
+                  {new Intl.NumberFormat("en-ZA", {
+                    style: "currency",
+                    currency: "ZAR",
+                  }).format(parseInt(deposit.depositAmount))}
                 </label>
               </div>
             </div>

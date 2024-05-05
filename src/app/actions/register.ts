@@ -1,47 +1,48 @@
 "use server";
+import { redirect } from "next/navigation";
 
-export default async function registerApi( email: any, password: any) {
-
-  const query = `
-mutation {
-  register(
-    registerInput: { email: "${email}", password: "${password}" }
-  ) {
-    user { 	
-      email
-      confirmed
-    }
-    error {
-      message
-      code
-    }
-  }
-}
-`;
-
-  await fetch(
-    `${
-      process.env.NODE_ENV === "production"
-        ? process.env.backend_server
-        : process.env.dev_server
-    }`,
-    {
-      method: "POST",
-      body: JSON.stringify({ query: query }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  )
-    .then((res) => {
-      if (res.status !== 200 && res.status !== 201) {
-        console.log(res.json());
-        return console.log("Try Logging in..");
+export default async function registerApi(email: any, password: any) {
+  const requestBody = {
+    query: `
+    mutation {
+      register(
+        registerInput: { email: "${email}", password: "${password}" }
+      ) {
+        user { 	
+          email
+          confirmed
+        }
+        error {
+          message
+          code
+        }
       }
+    }
+  `,
+  };
 
-      res.json();
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  try {
+    const response = await fetch(
+      `${
+        (await process.env.NODE_ENV) === "production"
+          ? process.env.backend_server
+          : process.env.dev_server
+      }`,
+      {
+        method: "POST",
+        body: JSON.stringify(requestBody),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (data.data.register.user !== null) {
+      return redirect("/checkEmail");
+    }
+  } catch (error) {
+    throw error;
+  }
 }
