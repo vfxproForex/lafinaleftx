@@ -47,8 +47,9 @@ export default function AccountPage() {
       error: "Please update user details for withdrawal purposes.",
       loading: "Loading Account details",
     });
+    await console.log(data);
 
-    dispatch(createAccountDetailsAction(data.data.userDetails));
+    dispatch(createAccountDetailsAction(data));
   };
   const getDeposit = async () => {
     const userId = cookie;

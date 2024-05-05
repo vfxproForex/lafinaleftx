@@ -15,7 +15,6 @@ export interface IAccountDetails {
   cardNumber?: string;
   expiryDate?: string;
   cvv?: string;
-  currentBalance?: number;
 }
 
 const initialState: IAccountDetails = {};
@@ -26,6 +25,8 @@ const accountDetailsSlice = createSlice({
   reducers: {
     create: {
       reducer: (state, { payload }: PayloadAction<IAccountDetails>) => {
+        console.log("payload");
+        console.log(payload);
         return {
           ...state,
           ...payload,
