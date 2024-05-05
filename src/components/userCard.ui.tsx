@@ -1,11 +1,14 @@
 "use client";
+import { useAppSelector } from "@/utlis/store";
 import Link from "next/link";
 import { FC } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { IoMdNotifications } from "react-icons/io";
 
 const UserCardUI: FC = () => {
-  const userDetails = [];
+  const userDetails = useAppSelector((state) => {
+    return state.accountDetails.firstname;
+  });
   const notifationHandler = () => {
     toast("No new Notifications.");
   };
@@ -24,7 +27,7 @@ const UserCardUI: FC = () => {
 
           <div className="grid pt-2 pb-2 pl-5 ">
             <label className="font-bold text-lg text-cs_text-200">
-              John Doe
+              {userDetails}
             </label>
             <label className="font-semibold text-cs_primary-300">
               Investor

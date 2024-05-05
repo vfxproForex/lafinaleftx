@@ -1,6 +1,4 @@
 "use client";
-
-import { init } from "next/dist/compiled/webpack/webpack";
 import { FC } from "react";
 
 interface IProps {

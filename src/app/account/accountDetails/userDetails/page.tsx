@@ -6,6 +6,7 @@ import cookies from "js-cookie";
 import { useAppDispatch, useAppSelector } from "@/utlis/store";
 import CreateUserDetailsApi from "@/app/actions/addUserDetailsApi";
 import { createAccountDetailsAction } from "@/utlis/accountDetails";
+import SubmitButton from "@/components/submitButton";
 
 export default function UserDetailsPage() {
   const accountDetails = useAppSelector((state) => state.accountDetails);
@@ -100,90 +101,97 @@ export default function UserDetailsPage() {
   }, []);
   return (
     <div className="flex flex-col gap-y-5 p-2">
-      <h1 className="text-2xl">User Details</h1>
+      <h1
+        className={`p-2 m-2 text-lg bg-cs_bg-200 shadow-lg text-cs_text-200 rounded-md flex-none w-2/4`}
+      >
+        User Details
+      </h1>
       <input
-        className="bg-gray-300 outline-none p-2 rounded-md "
+        className="bg-cs_primary-100 text-white outline-none p-2 rounded-md m-2"
         type="text"
         placeholder="First name"
         ref={firstNameRef}
       />
       <input
-        className="bg-gray-300 outline-none p-2 rounded-md "
+        className="bg-cs_primary-100 text-white outline-none p-2 rounded-md m-2"
         type="text"
         placeholder="Middle name"
         ref={middleNameRef}
       />
       <input
-        className="bg-gray-300 outline-none p-2 rounded-md "
+        className="bg-cs_primary-100 text-white outline-none p-2 rounded-md m-2"
         type="text"
         placeholder="Last name"
         ref={lastNameRef}
       />
       <input
-        className="bg-gray-300 outline-none p-2 rounded-md "
+        className="bg-cs_primary-100 text-white outline-none p-2 rounded-md m-2"
         type="text"
         placeholder="Contact Number"
         ref={contactNumberRef}
       />
 
       <div className="flex flex-col gap-y-5">
-        <p>For withdrawals purposes:</p>
+        <p
+          className={`p-2 m-2 text-lg bg-cs_bg-200 shadow-lg text-cs_text-200 rounded-md flex-none w-2/4`}
+        >
+          For withdrawals purposes:
+        </p>
         <input
-          className="bg-gray-300 outline-none p-2 rounded-md "
+          className="bg-cs_primary-100 text-white outline-none p-2 rounded-md m-2"
           type="text"
           placeholder="Bank name"
           ref={bankNameRef}
         />
         <input
-          className="bg-gray-300 outline-none p-2 rounded-md "
+          className="bg-cs_primary-100 text-white outline-none p-2 rounded-md m-2"
           type="text"
           placeholder="Account type"
           ref={accountTypeRef}
         />
         <input
-          className="bg-gray-300 outline-none p-2 rounded-md "
+          className="bg-cs_primary-100 text-white outline-none p-2 rounded-md m-2"
           type="text"
           placeholder="Account name"
           ref={accountNameRef}
         />
         <input
-          className="bg-gray-300 outline-none p-2 rounded-md "
+          className="bg-cs_primary-100 text-white outline-none p-2 rounded-md m-2"
           type="text"
           placeholder="Account number"
           ref={accountNumberRef}
         />
         <input
-          className="bg-gray-300 outline-none p-2 rounded-md "
+          className="bg-cs_primary-100 text-white outline-none p-2 rounded-md m-2"
           type="text"
           placeholder="Card No."
           ref={cardNumberRef}
         />
         <input
-          className="bg-gray-300 outline-none p-2 rounded-md "
+          className="bg-cs_primary-100 text-white outline-none p-2 rounded-md m-2"
           type="text"
           placeholder="Name on Card"
           ref={nameOnCardRef}
         />
         <input
-          className="bg-gray-300 outline-none p-2 rounded-md "
+          className="bg-cs_primary-100 text-white outline-none p-2 rounded-md m-2"
           type="text"
           placeholder="Expiry Date"
           ref={expiryDateRef}
         />
         <input
-          className="bg-gray-300 outline-none p-2 rounded-md "
+          className="bg-cs_primary-100 text-white outline-none p-2 rounded-md m-2"
           type="text"
           placeholder="CVV no."
           ref={cvvNumberRef}
         />
       </div>
       <div className="flex justify-center">
-        <button
-          className="bg-gray-500 w-[15vh] text-center p-2 rounded-md"
-          onClick={postUserDetails}
-        >
-          Save
-        </button>
+        <SubmitButton
+          key={"save user deitalsc"}
+          loadingTitle="Saving..."
+          buttonCaption="Save"
+        />
       </div>
       <Toaster />
     </div>

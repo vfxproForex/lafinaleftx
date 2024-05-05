@@ -13,7 +13,7 @@ const Modal: FC<IProps> = ({ children, onClick }) => {
   return (
     <div
       className={
-        "absolute flex flex-col justify-center items-center align-middle backdrop-blur-sm bg-white/5 h-screen w-screen"
+        "absolute h-screen w-screen flex flex-col justify-center items-center align-middle backdrop-blur-sm bg-white/5 "
       }
     >
       <div
