@@ -11,7 +11,6 @@ export default function ContactUsView() {
       </div>
 
       <div className="gap-y-3 flex flex-col pl-5 mb-10">
-        <p>Tel. 123-456-7890</p>
         <p>E-mail. info@pinnacleftx.com</p>
       </div>
 
