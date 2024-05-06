@@ -1,6 +1,6 @@
 "use server";
 
-export default async function getUserBalanceApi(userId: sting) {
+export default async function getUserBalanceApi(userId: string) {
   const requestBody = {
     query: `
          query {

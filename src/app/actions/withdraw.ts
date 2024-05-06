@@ -1,12 +1,13 @@
-import Cookies from "js-cookie";
+"use server";
 
-export default async function CreateWithDrawApi(amount: string) {
-  const cookie = Cookies.get("qid");
-
+export default async function CreateWithDrawApi(
+  amount: string,
+  userId: string
+) {
   const requestBody = {
     query: `
             mutation {
-              createWithdraw(amount: ${amount}, userId: "${cookie}"){
+              createWithdraw(amount: ${amount}, userId: "${userId}"){
                 userId
                 withdrawDate
                 reference
@@ -24,16 +25,16 @@ export default async function CreateWithDrawApi(amount: string) {
           : process.env.dev_server
       }`,
       {
-        method: "post",
+        method: "POST",
+        body: JSON.stringify(requestBody),
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(requestBody),
       }
     );
 
     const data = await response.json();
-    console.log(data);
+    return data.data.createWithdraw;
   } catch (err) {
     console.log(`Error creating deposit: ${err}`);
   }

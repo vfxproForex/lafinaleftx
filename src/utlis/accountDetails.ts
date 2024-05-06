@@ -25,8 +25,6 @@ const accountDetailsSlice = createSlice({
   reducers: {
     create: {
       reducer: (state, { payload }: PayloadAction<IAccountDetails>) => {
-        console.log("payload");
-        console.log(payload);
         return {
           ...state,
           ...payload,

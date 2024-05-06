@@ -26,16 +26,21 @@ const initialState: IProps[] = [
 const TradeUI: FC = () => {
   return (
     <div className="w-full mt-5">
-      <label className="text-md text-cs_text-100 ml-5 font-bold">
-        Most Popular
-      </label>
+      <div className="grid ">
+        <label className="text-md text-cs_text-100 ml-5 font-bold">
+          Most Popular
+        </label>
+        <label className="text-xs text-red-200 ml-5 font-bold">
+          Notice: Please activate account to view trades.
+        </label>
+      </div>
 
       <ul className="overflow-x-auto w-full flex">
         {initialState.map((x) => {
           return (
             <div
               key={x.id.toString()}
-              className="rounded-lg bg-cs_bg-200 flex-none max-w-[150px] grid grid-cols-1 gap-y-5 p-3 m-4"
+              className="blur-2xl   rounded-lg bg-cs_bg-200 flex-none max-w-[150px] grid grid-cols-1 gap-y-5 p-3 m-4"
             >
               <div className={`grid-cols-2 grid p-2`}>
                 <label className={`text-green-500 text-sm`}>+ 4%</label>

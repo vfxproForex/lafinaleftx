@@ -85,7 +85,7 @@ export default function AccountPage() {
     }
   }, []);
   return (
-    <div className="w-full">
+    <div className="h-screen w-screen">
       <UserCardUI />
       <BannerUI />
       <TradeUI />
