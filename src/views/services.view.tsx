@@ -5,7 +5,7 @@ import monitoringImage from "../../public/trade.jpg";
 
 export default function ServiceView() {
   return (
-    <div className="mt-6 p-2">
+    <div className="mt-6 p-2 text-white">
       <div className="p-4 rounded-lg">
         <h1 className="text-3xl mb-7 font-bold">Services</h1>
         <div className="mb-8">

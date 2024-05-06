@@ -23,12 +23,17 @@ export default function HeadingViews() {
             }}
           />
         </div>
-        <div className="absolute md:bg-white md:p-10 grid rounded-lg h-[1/2]  md:bg-opacity-30">
+        <div className="absolute text-white p-2 flex flex-col rounded-lg h-[1/2]  md:bg-opacity-30">
           <h1 className="text-3xl">Welcome to Pinnacle FTX</h1>
           <p className="text-sm">An Important Step towards Financial Success</p>
-          <Link href={"/register"} className="bg-gray-500 p-3 rounded-md">
-            Get Started
-          </Link>
+          <div className="p-2">
+            <Link
+              href={"/register"}
+              className="bg-gray-500 p-2 rounded-lg mt-3 "
+            >
+              Get Started
+            </Link>
+          </div>
           <h1 className={`mt-7 text-xl ${sync.className}`}>
             Trade Triumphantly
           </h1>
