@@ -33,11 +33,11 @@ const data: IProps[] = [
 const CarouselUI: FC = () => {
   return (
     <div className="w-full">
-      <ul className={"flex animate-loop-scroll"}>
+      <ul className="overflow-x-auto w-full flex">
         {data.map((item) => {
           return (
             <li
-              className="flex space-x-3 bg-cs_primary-100 p-2 text-white"
+              className="flex space-x-2 bg-cs_primary-100 animate-loop-scroll p-2 text-white"
               key={item.id.toString()}
             >
               <label className="">{item.icon}</label>

@@ -88,9 +88,11 @@ export default function AccountPage() {
     }
   }, []);
   return (
-    <div className="h-screen w-screen">
+    <div className="w-screen">
       <UserCardUI />
-      <CarouselUI />
+      <div>
+        <CarouselUI />
+      </div>
       <BannerUI />
       <div>
         <TradeUI />
