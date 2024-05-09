@@ -36,9 +36,6 @@ const TradeUI: FC = () => {
         <label className="text-md text-cs_text-100 ml-5 font-bold">
           Most Popular
         </label>
-        <label className="text-xs text-red-200 ml-5 font-bold">
-          Notice: Please activate account to view trades.
-        </label>
       </div>
 
       <ul className="overflow-x-auto w-full flex">
@@ -48,7 +45,7 @@ const TradeUI: FC = () => {
           return (
             <div
               key={x.id.toString()}
-              className="rounded-lg bg-cs_bg-200 flex-none max-w-[150px] grid grid-cols-1 gap-y-5 p-3 m-4"
+              className="rounded-lg bg-cs_bg-200 flex-none max-w-[150px] grid grid-cols-1 gap-y-5 p-3 m-4 animate-loop-scroll"
             >
               <div className={`grid-cols-2 grid p-2`}>
                 <label className={`text-green-500 text-sm`}>

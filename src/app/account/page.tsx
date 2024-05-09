@@ -14,6 +14,9 @@ import getDepositsApi from "../actions/getDepositsApi";
 import getUserBalanceApi from "../actions/getBalanceApi";
 import { getAccountDetailsApi } from "../actions/getAccountDetails";
 import toast, { Toaster } from "react-hot-toast";
+import RPMcard from "../../../public/image.jpg";
+import Image from "next/image";
+import CarouselUI from "@/components/carousel.ui";
 
 export default function AccountPage() {
   const deposits = useAppSelector((state) => state.deposits);
@@ -87,9 +90,15 @@ export default function AccountPage() {
   return (
     <div className="h-screen w-screen">
       <UserCardUI />
+      <CarouselUI />
       <BannerUI />
-      <TradeUI />
+      <div>
+        <TradeUI />
+      </div>
       <ActiveTradesUI />
+      <div className="flex justify-center">
+        <Image src={RPMcard} width={256} height={256} alt="" />
+      </div>
       <Toaster />
     </div>
   );

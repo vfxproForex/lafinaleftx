@@ -9,6 +9,15 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      animation: {
+        "loop-scroll": "loop-scroll 10s linear infinite",
+      },
+      keyframes: {
+        "loop-scroll": {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(-100%)" },
+        },
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -58,6 +67,10 @@ const config: Config = {
           100: "#3D5A80",
           200: "#cee8ff",
         },
+      },
+      gridTemplateRows: {
+        7: "repeat(7, minmax(0, 1fr))",
+        8: "repeat(8, minmax(0, 1fr))",
       },
     },
   },
