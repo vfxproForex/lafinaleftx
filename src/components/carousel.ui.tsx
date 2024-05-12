@@ -32,22 +32,22 @@ const data: IProps[] = [
 ];
 const CarouselUI: FC = () => {
   return (
-    <div className="w-full">
-      <ul className="overflow-x-auto w-full flex">
+    <div className="max-w-full static mt-5 mb-5">
+      <div className="left-0 right-0 space-x-3 flex animate-loop-scroll">
         {data.map((item) => {
           return (
-            <li
-              className="flex space-x-2 bg-cs_primary-100 animate-loop-scroll p-2 text-white"
+            <div
+              className="flex space-x-2 rounded-md bg-green-500 p-3 text-white"
               key={item.id.toString()}
             >
               <label className="">{item.icon}</label>
               <label className="">{item.amount}</label>
               <label className="">{item.gain}</label>
               <label className="">{item.percentage}</label>
-            </li>
+            </div>
           );
         })}
-      </ul>
+      </div>
     </div>
   );
 };

@@ -12,7 +12,7 @@ export default function AccountLayout({
     storeRef.current = makeStore();
   }
   return (
-    <div className="w-full h-full">
+    <div className="max-w-screen h-screen overflow-x-hidden mx-auto">
       <Provider store={storeRef.current}>
         <AccountNav />
         {children}

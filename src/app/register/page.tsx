@@ -46,9 +46,9 @@ export default function RegisterPage() {
   return (
     <form
       onSubmit={registerHandler}
-      className="h-screen flex flex-col w-screen justify-center align-middle"
+      className="h-screen flex flex-col w-screen justify-center md:items-center  align-middle"
     >
-      <div className="backdrop-blur-sm bg-white/30  min:h-[50vh] m-5 p-2 rounded-md">
+      <div className="backdrop-blur-sm bg-white/30  min:h-[50vh] md:w-[50vh] m-5 p-2 rounded-md">
         <div>
           <div className="p-2 w-full grid">
             <Link

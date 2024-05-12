@@ -8,6 +8,9 @@ export default function RegisterLayout({
     <div
       style={{
         backgroundImage: `url(${graphImage.src})`,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
       }}
       className="w-screen h-screen backdrop-blur-lg"
     >

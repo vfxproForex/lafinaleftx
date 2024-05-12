@@ -88,15 +88,11 @@ export default function AccountPage() {
     }
   }, []);
   return (
-    <div className="w-screen">
+    <div className="w-full">
       <UserCardUI />
-      <div>
-        <CarouselUI />
-      </div>
+      <CarouselUI />
       <BannerUI />
-      <div>
-        <TradeUI />
-      </div>
+                    <TradeUI />
       <ActiveTradesUI />
       <div className="flex justify-center">
         <Image src={RPMcard} width={256} height={256} alt="" />

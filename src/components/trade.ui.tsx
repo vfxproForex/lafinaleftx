@@ -45,7 +45,7 @@ const TradeUI: FC = () => {
           return (
             <div
               key={x.id.toString()}
-              className="rounded-lg bg-cs_bg-200 flex-none max-w-[150px] grid grid-cols-1 gap-y-5 p-3 m-4 animate-loop-scroll"
+              className="rounded-lg bg-cs_bg-200 flex-none max-w-[150px] grid grid-cols-1 gap-y-5 p-3 m-4"
             >
               <div className={`grid-cols-2 grid p-2`}>
                 <label className={`text-green-500 text-sm`}>
