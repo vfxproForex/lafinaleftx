@@ -33,7 +33,7 @@ export default function WithdrawsPage() {
       ) : (
         <>
           <h1
-            className={`p-2 m-2 text-lg bg-cs_bg-200 shadow-lg text-cs_text-200 rounded-md flex-none w-1/4`}
+            className={`p-2 m-2 text-lg bg-cs_bg-200 shadow-lg text-cs_text-200 rounded-md flex-none w-2/5`}
           >
             Withdrawals
           </h1>
