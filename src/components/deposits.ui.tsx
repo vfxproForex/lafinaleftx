@@ -1,7 +1,6 @@
 "use client";
 
 import { IDeposit } from "@/utlis/deposits";
-import { formatDate } from "@/utlis/func/dateFormat";
 import { FC } from "react";
 
 interface IProps {
@@ -15,7 +14,7 @@ const Deposits: FC<IProps> = (props) => {
         {props.deposits.map((deposit) => {
           return (
             <div
-              key={deposit.refernce.toString()}
+              key={deposit.refernce}
               className="rounded-lg bg-cs_bg-200 flex-none grid grid-cols-1 gap-y-5 p-3 m-4"
             >
               <div className="grid grid-cols-2">
@@ -26,16 +25,6 @@ const Deposits: FC<IProps> = (props) => {
                   <label className={"text-sm font-bold text-cs_text-200"}>
                     {deposit.refernce}
                   </label>
-                </div>
-                <div>
-                  <div className="grid text-end">
-                    <label className={"text-md text-cs_text-200"}>
-                      Deposit Date
-                    </label>
-                    <label className={"text-sm font-bold text-cs_text-200"}>
-                      {formatDate(deposit.depositDate)}
-                    </label>
-                  </div>
                 </div>
               </div>
 

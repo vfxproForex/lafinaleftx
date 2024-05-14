@@ -10,6 +10,7 @@ import withdrawSlice from "./withdraws";
 import depositSlice from "./deposits";
 import tokenSlice from "./token";
 import userSlice from "./user";
+import newsSlice from "./news.reducer";
 
 export const makeStore = () => {
   return configureStore({
@@ -18,6 +19,7 @@ export const makeStore = () => {
       accountDetails: accountDetailsSlice.reducer,
       withdraws: withdrawSlice.reducer,
       deposits: depositSlice.reducer,
+      news: newsSlice.reducer,
     },
   });
 };
@@ -35,6 +37,7 @@ const reducer = combineReducers({
   accountDetails: accountDetailsSlice.reducer,
   withdrawal: withdrawSlice.reducer,
   deposits: depositSlice.reducer,
+  news: newsSlice.reducer,
 });
 
 const store = configureStore({

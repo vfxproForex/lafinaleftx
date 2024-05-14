@@ -17,7 +17,6 @@ const depositSlice = createSlice({
   reducers: {
     create: {
       reducer: (state, { payload }: PayloadAction<IDeposit>) => {
-        console.log(`State: ${payload}`);
         state.push(payload);
       },
       prepare: (item) => ({

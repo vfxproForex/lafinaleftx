@@ -2,11 +2,17 @@
 import Deposits from "@/components/deposits.ui";
 import { useAppSelector } from "@/utlis/store";
 import Link from "next/link";
+import { useEffect } from "react";
 
 export default function TransactionsPage() {
   const deposits = useAppSelector((state) => {
     return state.deposits;
   });
+
+  useEffect(() => {
+    console.log(deposits);
+  }, []);
+
   return (
     <div
       className={`h-full w-screen ${

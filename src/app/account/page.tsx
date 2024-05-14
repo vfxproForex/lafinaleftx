@@ -17,6 +17,9 @@ import toast, { Toaster } from "react-hot-toast";
 import RPMcard from "../../../public/image.jpg";
 import Image from "next/image";
 import CarouselUI from "@/components/carousel.ui";
+import NewsUI from "@/components/new.ui";
+import getWithdrawalsApi from "../actions/getWithdrawals.api";
+import { IWithdraw, createWithDrawAction } from "@/utlis/withdraws";
 
 export default function AccountPage() {
   const deposits = useAppSelector((state) => state.deposits);
@@ -73,18 +76,37 @@ export default function AccountPage() {
       throw err;
     }
   };
-  const getWithdrawal = async () => {};
+
+  const getWithdrawal = async () => {
+    const userId = cookie;
+
+    try {
+      const apiDeposits: IWithdraw[] = await toast.promise(
+        getWithdrawalsApi(userId!),
+        {
+          loading: "Loading withdrawals",
+          error: "No withdrawals found.",
+          success: "withdrawals loaded.",
+        }
+      );
+      return apiDeposits.map((withdraw) => {
+        dispatch(createWithDrawAction(withdraw));
+      });
+    } catch (err) {
+      throw err;
+    }
+  };
 
   useEffect(() => {
     //if statement
     setToken();
     getAccountDetails();
-    getWithdrawal();
     getAccountBalance();
     if (deposits.length > 0) {
       return;
     } else {
       getDeposit();
+      getWithdrawal();
     }
   }, []);
   return (
@@ -92,10 +114,31 @@ export default function AccountPage() {
       <UserCardUI />
       <CarouselUI />
       <BannerUI />
-                    <TradeUI />
+      <TradeUI />
       <ActiveTradesUI />
-      <div className="flex justify-center">
-        <Image src={RPMcard} width={256} height={256} alt="" />
+      <div className="flex justify-center p-4 mt-5">
+        <Image src={RPMcard} className="w-full " alt="" />
+      </div>
+      <NewsUI />
+      <div>
+        <h1 className="text-md text-cs_text-100 ml-5 font-bold">
+          Risk Warning
+        </h1>
+        <p className="p-4 text-white">
+          Pinnacle FTX (Pty) Ltd, a company incorporated under the laws of South
+          Africa with registration number 2021/596850/07 and registered address
+          at 177 9TH AVENUE HIGHLANDS NORTH, JOHANNESBURG, GAUTENG and is a duly
+          authorised Juristic Representative of RocketX (Pty) Ltd. RocketX (Pty)
+          Ltd is licensed and regulated by the Financial Sector Conduct
+          Authority (FSP number 52142). RocketX (Pty) Ltd, registration number
+          2020/824856/07, a company organized and existing under the laws of
+          South Africa, RocketX is an Over the Counter Derivatives Provider
+          whose registered office is at WeWork South Africa, 155 West Street,
+          Sandton, Gauteng, 2031, are payment operators of Vault
+          Markets(Pty)Ltd., by laws of South Africa acting as paying agent on
+          behalf of Vault Markets(Pty)Ltd. Office Park Block A Ground South
+          Boulevard Road, Johannesburg, Gauteng, 2198.
+        </p>
       </div>
       <Toaster />
     </div>

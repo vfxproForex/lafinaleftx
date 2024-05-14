@@ -1,5 +1,4 @@
 "use client";
-import { formatDate } from "@/utlis/func/dateFormat";
 import { IWithdraw } from "@/utlis/withdraws";
 import { FC } from "react";
 
@@ -14,7 +13,7 @@ const WithdrawUI: FC<IProps> = (props) => {
         {props.withdraws.map((withdraw) => {
           return (
             <div
-              key={withdraw.reference.toString()}
+              key={withdraw.reference}
               className="rounded-lg bg-cs_bg-200 flex-none grid grid-cols-1 gap-y-5 p-3 m-4"
             >
               <div className="grid grid-cols-2">
@@ -25,16 +24,6 @@ const WithdrawUI: FC<IProps> = (props) => {
                   <label className={"text-sm font-bold text-cs_text-200"}>
                     {withdraw.reference}
                   </label>
-                </div>
-                <div>
-                  <div className="grid text-end">
-                    <label className={"text-md text-cs_text-200"}>
-                      Withdrawal Date
-                    </label>
-                    <label className={"text-sm font-bold text-cs_text-200"}>
-                      {formatDate(withdraw.withdrawDate)}
-                    </label>
-                  </div>
                 </div>
               </div>
 
