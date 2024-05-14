@@ -26,25 +26,6 @@ const WithdrawUI: FC<IProps> = (props) => {
                   </label>
                 </div>
               </div>
-
-              <div className={`flex justify-between`}>
-                <label
-                  className={`${
-                    withdraw.withdrawStatus === "Processing"
-                      ? "bg-gradient-to-br from-yellow-400 via-yellow-500 to-yellow-600"
-                      : withdraw.withdrawStatus === "Failed, Contact Support"
-                      ? "bg-gradient-to-br from-red-400 via-red-500 to-red-600"
-                      : withdraw.withdrawStatus === "Processed"
-                      ? "bg-gradient-to-br from-green-400 via-green-500 to-green-600"
-                      : null
-                  } rounded-md flex justify-center items-center text-center text-sm font-bold w-[100px]`}
-                >
-                  {withdraw.withdrawStatus}
-                </label>
-                <label className="text-lg text-green-500 font-bold">
-                  {withdraw.withdrawStatus}
-                </label>
-              </div>
             </div>
           );
         })}
