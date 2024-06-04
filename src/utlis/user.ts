@@ -15,11 +15,6 @@ const userSlice = createSlice({
     create: {
       reducer: (state, { payload }: PayloadAction<IUser>) => {
         state.balance = payload.balance;
-
-        //return {
-        //...state,
-        //...payload,
-        //};
       },
       prepare: (item: IUser) => ({
         payload: item,

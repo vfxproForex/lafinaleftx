@@ -20,6 +20,8 @@ import CarouselUI from "@/components/carousel.ui";
 import NewsUI from "@/components/new.ui";
 import getWithdrawalsApi from "../actions/getWithdrawals.api";
 import { IWithdraw, createWithDrawAction } from "@/utlis/withdraws";
+import forexImage from '../../../public/forexbackgroundImage.png'
+import forexImage2 from '../../../public/forexbackgroundImage2.png'
 
 export default function AccountPage() {
   const deposits = useAppSelector((state) => state.deposits);
@@ -51,7 +53,7 @@ export default function AccountPage() {
     const data = await toast.promise(getAccountDetailsApi(userId!), {
       success: "Account details updated",
       error: "Please update user details for withdrawal purposes.",
-      loading: "Loading Account details",
+      loading: "Loading Account details.",
     });
     await console.log(data);
 
@@ -120,6 +122,13 @@ export default function AccountPage() {
         <Image src={RPMcard} className="w-full " alt="" />
       </div>
       <NewsUI />
+      <div className={'space-y-5 p-2'}>
+        <h1 className="text-xl text-bold font-bold text-white">Current Market Trends</h1>
+        <div className="flex overflow-x-scroll space-x-5 p-4">
+          <Image className="shadow bg-white/50" alt="" src={forexImage} height={512} width={512} />
+          <Image className="shadow bg-white/50" alt="" src={forexImage2} height={512} width={512} />
+        </div>
+      </div>
       <div>
         <h1 className="text-md text-cs_text-100 ml-5 font-bold">
           Risk Warning
